@@ -1,0 +1,36 @@
+
+package dominio;
+
+import java.util.ArrayList;
+
+public class Producto {
+    private ArrayList<Categoria> categorias;
+    private String nombre;
+    private double precio;
+
+    public ArrayList<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(ArrayList<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
+    
+}
