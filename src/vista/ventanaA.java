@@ -163,7 +163,7 @@ public class ventanaA extends javax.swing.JFrame {
                 
             }else{
                 modelo.agregarCliente(c);
-                JOptionPane.showMessageDialog(null, "Cliente agregado con éxito!", "success", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "Cliente agregado con éxito!", "success", JOptionPane.INFORMATION_MESSAGE);
                 tf_nombre.setText("");
                 tf_telefono.setText("");
                 tf_direccion.setText("");
