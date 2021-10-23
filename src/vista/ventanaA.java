@@ -5,16 +5,16 @@
  */
 package vista;
 
-/**
- *
- * @author federicacabrera
- */
+import dominio.Cliente;
+import dominio.Sistema;
+import javax.swing.JOptionPane;
+
 public class ventanaA extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ventanaA
-     */
-    public ventanaA() {
+    private Sistema modelo;
+
+    public ventanaA(Sistema elModelo) {
+        modelo = elModelo;
         initComponents();
     }
 
@@ -68,6 +68,11 @@ public class ventanaA extends javax.swing.JFrame {
         });
 
         btn_agregarCliente.setText("Agregar");
+        btn_agregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,40 +143,80 @@ public class ventanaA extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_telefonoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void btn_agregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarClienteActionPerformed
+        String nombre = tf_nombre.getText();
+        String direccion = tf_direccion.getText();
+        String telefono = tf_telefono.getText();
+
+        if (!espacioVacio(nombre) && !espacioVacio(direccion) && !espacioVacio(telefono)) {
+            String res = "";
+            for (int j = 0; j < nombre.length(); j++) {
+                if (nombre.charAt(j) != ' ') {
+                    res += nombre.charAt(j);
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ventanaA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ventanaA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ventanaA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ventanaA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ventanaA().setVisible(true);
+            Cliente c = modelo.crearCliente(res, direccion, telefono);
+            boolean esUnico = modelo.verificarNombreUnico(c);
+            if (!esUnico) {
+                JOptionPane.showMessageDialog(null, "Ya existe un cliente con este nombre. Reingrese", "error", JOptionPane.ERROR_MESSAGE);
+                tf_nombre.setText("");
+                
+            }else{
+                modelo.agregarCliente(c);
+                JOptionPane.showMessageDialog(null, "Cliente agregado con éxito!", "success", JOptionPane.OK_OPTION);
+                tf_nombre.setText("");
+                tf_telefono.setText("");
+                tf_direccion.setText("");
+                
             }
-        });
+        }else{
+            JOptionPane.showMessageDialog(null, "Hay campos en blanco. Reingrese", "error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_agregarClienteActionPerformed
+
+    public boolean espacioVacio(String s) {
+        boolean hayEspacio = true;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != ' ') {
+                hayEspacio = false;
+
+            }
+
+        }
+        return hayEspacio;
     }
+
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ventanaA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ventanaA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ventanaA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ventanaA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new ventanaA().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregarCliente;

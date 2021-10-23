@@ -5,11 +5,14 @@
  */
 package ejecucion;
 
+import dominio.Sistema;
 import vista.VentanaPrincipal;
 
 public class Prueba {
+    
     public static void main(String[] args) {
-       VentanaPrincipal ventana = new VentanaPrincipal();
+       Sistema s = new Sistema();
+       VentanaPrincipal ventana = new VentanaPrincipal(s);
        ventana.setVisible(true);
        
        
