@@ -146,7 +146,7 @@ public class ventanaA extends javax.swing.JFrame {
         String direccion = tf_direccion.getText();
         String telefono = tf_telefono.getText();
 
-        if (!espacioVacio(nombre) && !espacioVacio(direccion) && !espacioVacio(telefono)) {
+        if (!modelo.espacioVacio(nombre) && !modelo.espacioVacio(direccion) && !modelo.espacioVacio(telefono)) {
             String res = "";
             for (int j = 0; j < nombre.length(); j++) {
                 if (nombre.charAt(j) != ' ') {
@@ -172,17 +172,6 @@ public class ventanaA extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_agregarClienteActionPerformed
 
-    public boolean espacioVacio(String s) {
-        boolean hayEspacio = true;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) != ' ') {
-                hayEspacio = false;
-
-            }
-
-        }
-        return hayEspacio;
-    }
 
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */

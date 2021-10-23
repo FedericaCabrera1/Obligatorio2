@@ -170,7 +170,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elegirClienteActionPerformed
-        ventanaF ventana = new ventanaF();
+        ventanaF ventana = new ventanaF(modelo);
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_elegirClienteActionPerformed
 
@@ -181,7 +181,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_categoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_categoriasActionPerformed
-        ventanaB ventana = new ventanaB();
+        ventanaB ventana = new ventanaB(modelo);
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_categoriasActionPerformed
 

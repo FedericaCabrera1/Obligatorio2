@@ -6,6 +6,13 @@ public class Categoria {
     private int prioridad;
     private String detalles;
 
+    
+    public Categoria(String unaDescripcion, int unaPrioridad, String unosDetalles){
+        descripcion = unaDescripcion;
+        prioridad = unaPrioridad;
+        detalles = unosDetalles;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -29,6 +36,7 @@ public class Categoria {
     public void setDetalles(String detalles) {
         this.detalles = detalles;
     }
+    
     
     
 }
