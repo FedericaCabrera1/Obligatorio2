@@ -5,6 +5,8 @@
  */
 package vista;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author federicacabrera
@@ -16,6 +18,7 @@ public class ventanaC extends javax.swing.JFrame {
      */
     public ventanaC() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

@@ -5,6 +5,8 @@
  */
 package vista;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author federicacabrera
@@ -16,6 +18,7 @@ public class ventanaB extends javax.swing.JFrame {
      */
     public ventanaB() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -50,6 +53,8 @@ public class ventanaB extends javax.swing.JFrame {
 
         lbl_prioridadCategoria.setText("Prioridad: (1 - 10)");
 
+        sp_prioridadCategoria.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+
         lbl_detallesCategoria.setText("Detalles:");
 
         ta_detallesCategoria.setColumns(20);
@@ -79,7 +84,7 @@ public class ventanaB extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lbl_prioridadCategoria)
                                 .addGap(18, 18, 18)
-                                .addComponent(sp_prioridadCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(sp_prioridadCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lbl_detallesCategoria)
