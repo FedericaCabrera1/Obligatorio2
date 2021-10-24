@@ -1,30 +1,50 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
+import dominio.Categoria;
 import dominio.Sistema;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 /**
  *
  * @author federicacabrera
  */
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
+
     public VentanaPrincipal(Sistema elModelo) {
         modelo = elModelo;
         initComponents();
+////        combo_parteK.addItem("rojo");
+////        combo_parteK.addItem("vede");
+////        combo_parteK.addItem("azul");
+////        combo_parteK.addItem("amarillo");
+////        combo_parteK.addItem("negro");
+//        combo_parteK.addItemListener(this);
+//        
+//        ArrayList<Categoria> listaCategorias = modelo.getListaCategorias();
+//        for(int i=0; i<listaCategorias.size(); i++){
+//            combo_parteK.addItem(listaCategorias.get(i).getDescripcion());
+//        }
+//        combo_parteK.addItemListener(this);
+        //mostrarEnCombo(combo_parteK);
+        modelo.addPropertyChangeListener(this);
+
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jButton6 = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -32,15 +52,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        rbtn_ordenAlfabetico = new javax.swing.JRadioButton();
+        rbtn_ordenPrioridad = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
         btn_clientes = new javax.swing.JButton();
         btn_categorias = new javax.swing.JButton();
         btn_productos = new javax.swing.JButton();
         btn_verPedidos = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        combo_parteK = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         btn_reiniciarPedidos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -54,9 +74,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton6.setText("jButton6");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setLayout(new java.awt.GridLayout(3, 2));
 
@@ -81,11 +101,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel3.add(jTextField2);
 
-        jRadioButton3.setText("Categorias por orden alfabetico");
-        jPanel3.add(jRadioButton3);
+        buttonGroup1.add(rbtn_ordenAlfabetico);
+        rbtn_ordenAlfabetico.setText("Categorias por orden alfabetico");
+        rbtn_ordenAlfabetico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtn_ordenAlfabeticoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(rbtn_ordenAlfabetico);
 
-        jRadioButton4.setText("Categorias por orden prioridad");
-        jPanel3.add(jRadioButton4);
+        buttonGroup1.add(rbtn_ordenPrioridad);
+        rbtn_ordenPrioridad.setText("Categorias por orden prioridad");
+        rbtn_ordenPrioridad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtn_ordenPrioridadActionPerformed(evt);
+            }
+        });
+        jPanel3.add(rbtn_ordenPrioridad);
 
         jPanel2.add(jPanel3);
 
@@ -127,8 +159,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel5.setLayout(new java.awt.GridLayout(1, 1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel5.add(jComboBox1);
+        combo_parteK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_parteKActionPerformed(evt);
+            }
+        });
+        jPanel5.add(combo_parteK);
 
         jPanel2.add(jPanel5);
 
@@ -143,7 +179,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel6.setLayout(new java.awt.GridLayout(3, 1));
         jPanel2.add(jPanel6);
 
-        jPanel7.setLayout(new java.awt.GridLayout());
+        jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -177,16 +213,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
         ventanaA ventana = new ventanaA(modelo);
         ventana.setVisible(true);
-        
+
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_categoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_categoriasActionPerformed
-        ventanaB ventana = new ventanaB(modelo);
+        ventanaB ventana = new ventanaB(modelo, combo_parteK);
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_categoriasActionPerformed
 
     private void btn_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_productosActionPerformed
-        ventanaC ventana = new ventanaC();
+        ventanaC ventana = new ventanaC(modelo);
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_productosActionPerformed
 
@@ -199,40 +235,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new VentanaPrincipal().setVisible(true);
-//            }
-//        });
-//    }
+    private void combo_parteKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_parteKActionPerformed
+
+    }//GEN-LAST:event_combo_parteKActionPerformed
+
+    private void rbtn_ordenAlfabeticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ordenAlfabeticoActionPerformed
+        ArrayList<Categoria> lista = modelo.ordenarPorDescripcion();
+        combo_parteK.removeAllItems();
+        for (int i = 0; i < lista.size(); i++) {
+            
+            combo_parteK.addItem(lista.get(i).getDescripcion());
+        }
+        
+        
+    }//GEN-LAST:event_rbtn_ordenAlfabeticoActionPerformed
+
+    private void rbtn_ordenPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ordenPrioridadActionPerformed
+       ArrayList<Categoria> lista = modelo.ordenarPorPrioridad();
+        combo_parteK.removeAllItems();
+        for (int i = 0; i < lista.size(); i++) {
+            
+            combo_parteK.addItem(lista.get(i).getDescripcion());
+        }
+    }//GEN-LAST:event_rbtn_ordenPrioridadActionPerformed
+
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_categorias;
@@ -243,8 +270,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btn_productos;
     private javax.swing.JButton btn_reiniciarPedidos;
     private javax.swing.JButton btn_verPedidos;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JComboBox<String> combo_parteK;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -257,9 +287,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JRadioButton rbtn_ordenAlfabetico;
+    private javax.swing.JRadioButton rbtn_ordenPrioridad;
     // End of variables declaration//GEN-END:variables
+
+    
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        //mostrarEnCombo(combo_parteK);
+    }
 }

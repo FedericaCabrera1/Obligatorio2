@@ -37,6 +37,9 @@ public class Categoria {
         this.detalles = detalles;
     }
     
+    public String toString(){
+        return "descripción: " + this.getDescripcion() + " prioridad: " + this.getPrioridad() + " detalles: " + this.getDetalles();
+    }
     
     
 }

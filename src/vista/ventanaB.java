@@ -2,17 +2,24 @@ package vista;
 
 import dominio.Categoria;
 import dominio.Sistema;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class ventanaB extends javax.swing.JFrame {
+public class ventanaB extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
+    private JComboBox combo;
 
-    public ventanaB(Sistema elModelo) {
+    public ventanaB(Sistema elModelo, JComboBox elCombo) {
+        combo = elCombo;
         modelo = elModelo;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        modelo.addPropertyChangeListener(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -137,6 +144,7 @@ public class ventanaB extends javax.swing.JFrame {
                 ta_descripcionCategoria.setText("");
                 sp_prioridadCategoria.setValue(1);
                 ta_detallesCategoria.setText("");
+                mostrarEnCombo(combo);
             }
 
         } else {
@@ -188,4 +196,20 @@ public class ventanaB extends javax.swing.JFrame {
     private javax.swing.JTextArea ta_descripcionCategoria;
     private javax.swing.JTextArea ta_detallesCategoria;
     // End of variables declaration//GEN-END:variables
+
+    public void mostrarEnCombo(JComboBox combo) {
+        ArrayList<Categoria> listaCategorias = modelo.getListaCategorias();
+        combo.removeAllItems();
+        for (int i = 0; i < listaCategorias.size(); i++) {
+            
+            combo.addItem(listaCategorias.get(i).getDescripcion());
+        }
+        
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        //mostrarEnCombo();
+    }
+
 }

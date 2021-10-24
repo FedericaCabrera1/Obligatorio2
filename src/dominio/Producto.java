@@ -8,6 +8,12 @@ public class Producto {
     private String nombre;
     private double precio;
 
+    public Producto(ArrayList<Categoria> lasCategorias, String unNombre, double unPrecio){
+        categorias = lasCategorias;
+        nombre = unNombre;
+        precio = unPrecio;
+    }
+    
     public ArrayList<Categoria> getCategorias() {
         return categorias;
     }
