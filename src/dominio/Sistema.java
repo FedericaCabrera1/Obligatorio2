@@ -177,6 +177,17 @@ public class Sistema {
                 }
             
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         return productosDeLaCategoria;
     }
 
