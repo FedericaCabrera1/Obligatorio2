@@ -70,8 +70,8 @@ public class Sistema {
         return esUnico;
     }
 
-    public boolean validacionFormatoPrecio(String precio){
-    boolean esCorrecto = false;
+    public boolean validacionFormatoPrecio(String precio) {
+        boolean esCorrecto = false;
         try {
             double precioDouble = Double.parseDouble(precio);
             esCorrecto = true;
@@ -101,7 +101,7 @@ public class Sistema {
 
     public void agregarCategoria(Categoria c) {
         this.listaCategorias.add(c);
-        gestor.firePropertyChange("", 0, 1);
+        gestor.firePropertyChange("c", 0, 1);
     }
 
     public Producto crearProducto(ArrayList<Categoria> lasCategorias, String unNombre, double unPrecio) {
@@ -111,6 +111,8 @@ public class Sistema {
 
     public void agregarProducto(Producto p) {
         this.listaProductos.add(p);
+        gestor.firePropertyChange("p", 0, 1);
+
     }
 
     public String sacarEspacios(String s) {
@@ -134,49 +136,60 @@ public class Sistema {
         }
         return hayEspacio;
     }
-    
-    
-     public ArrayList<Categoria> ordenarPorDescripcion(){
-       Collections.sort(listaCategorias, new Comparator<Categoria>(){
-           public int compare(Categoria c1, Categoria c2){
-            return c1.getDescripcion().compareTo(c2.getDescripcion());
-           }
-       }); 
-       return listaCategorias;
-   }
-   
-    public class criterioPorPrioridad implements Comparator<Categoria>{
-       @Override
-       public int compare(Categoria c1, Categoria c2){
-           return (int)(c2.getPrioridad() - c1.getPrioridad());
-       }
-   }
-    
-    public ArrayList<Categoria> ordenarPorPrioridad (){
+
+    public ArrayList<Categoria> ordenarPorDescripcion() {
+        Collections.sort(listaCategorias, new Comparator<Categoria>() {
+            public int compare(Categoria c1, Categoria c2) {
+                return c1.getDescripcion().compareTo(c2.getDescripcion());
+            }
+        });
+        return listaCategorias;
+    }
+
+    public class criterioPorPrioridad implements Comparator<Categoria> {
+
+        @Override
+        public int compare(Categoria c1, Categoria c2) {
+            return (int) (c2.getPrioridad() - c1.getPrioridad());
+        }
+    }
+
+    public ArrayList<Categoria> ordenarPorPrioridad() {
         Collections.sort(listaCategorias, new criterioPorPrioridad());
         return listaCategorias;
     }
-    
-    public void addPropertyChangeListener(PropertyChangeListener lis){
+
+    public void addPropertyChangeListener(PropertyChangeListener lis) {
         gestor.addPropertyChangeListener(lis);
     }
-    
-    public ArrayList<Producto> darProductosDeCategoria(Categoria c){
+
+    public ArrayList<Producto> darProductosDeCategoria(Categoria c) {
         ArrayList<Producto> productosDeLaCategoria = new ArrayList<Producto>();
-        for(int i=0; i<this.listaProductos.size();i++){
+        for (int i = 0; i < this.listaProductos.size(); i++) {
             boolean esta = false;
             ArrayList<Categoria> catProd = this.listaProductos.get(i).getCategorias();
-            for(int j=0; j<catProd.size() && !esta; j++){
-                if(catProd.get(i).getDescripcion().equalsIgnoreCase(c.getDescripcion())){
+            for (int j = 0; j < catProd.size() && !esta; j++) {
+                if (catProd.get(j).getDescripcion().equalsIgnoreCase(c.getDescripcion())) {
                     esta = true;
                 }
             }
-            if(esta){
-                    productosDeLaCategoria.add(this.listaProductos.get(i));
-                }
-            
+            if (esta) {
+                productosDeLaCategoria.add(this.listaProductos.get(i));
+            }
+
         }
         return productosDeLaCategoria;
+    }
+
+    public Categoria buscarCategoriaPorDescripcion(String descripcion) {
+        Categoria c = null;
+        for (int i = 0; i < listaCategorias.size(); i++) {
+            String descripcion2 = listaCategorias.get(i).getDescripcion();
+            if (sacarEspacios(descripcion).equalsIgnoreCase(sacarEspacios(descripcion2))) {
+                c = listaCategorias.get(i);
+            }
+        }
+        return c;
     }
 
 }

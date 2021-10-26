@@ -14,7 +14,5 @@ public class Prueba {
        Sistema s = new Sistema();
        VentanaPrincipal ventana = new VentanaPrincipal(s);
        ventana.setVisible(true);
-       
-       
     }
 }

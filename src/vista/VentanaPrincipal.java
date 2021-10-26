@@ -1,25 +1,27 @@
 package vista;
 
 import dominio.Categoria;
+import dominio.Producto;
 import dominio.Sistema;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
 
-/**
- *
- * @author federicacabrera
- */
 public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
+    private JComboBox suggestionComboBox;
 
     public VentanaPrincipal(Sistema elModelo) {
         modelo = elModelo;
         initComponents();
+        this.setSize(900, 500);
 ////        combo_parteK.addItem("rojo");
 ////        combo_parteK.addItem("vede");
 ////        combo_parteK.addItem("azul");
@@ -65,7 +67,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         jPanel4 = new javax.swing.JPanel();
         btn_reiniciarPedidos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        panelProducto = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
@@ -160,6 +162,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
         jPanel5.setLayout(new java.awt.GridLayout(1, 1));
 
+        combo_parteK.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_parteKItemStateChanged(evt);
+            }
+        });
         combo_parteK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combo_parteKActionPerformed(evt);
@@ -177,16 +184,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
         jPanel2.add(jPanel4);
 
-        jPanel6.setLayout(new java.awt.GridLayout(3, 1));
-        jPanel2.add(jPanel6);
+        panelProducto.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel2.add(panelProducto);
 
         jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList1);
 
         jPanel7.add(jScrollPane1);
@@ -238,6 +240,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     private void combo_parteKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_parteKActionPerformed
 
+
     }//GEN-LAST:event_combo_parteKActionPerformed
 
     private void rbtn_ordenAlfabeticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ordenAlfabeticoActionPerformed
@@ -250,6 +253,46 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         mostrarEnCombo(lista);
     }//GEN-LAST:event_rbtn_ordenPrioridadActionPerformed
 
+    private void combo_parteKItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_parteKItemStateChanged
+        // TODO add your handling code here:
+        int index = combo_parteK.getSelectedIndex();
+        if (index != -1) {
+            String descripcion = combo_parteK.getSelectedItem().toString();
+            Categoria c = modelo.buscarCategoriaPorDescripcion(descripcion);
+            mostrarProductos(c);
+        }
+
+
+    }//GEN-LAST:event_combo_parteKItemStateChanged
+
+    public void mostrarProductos(Categoria categoria) {
+        panelProducto.removeAll();
+        panelProducto.revalidate();
+        panelProducto.repaint();
+        ArrayList<Producto> listaProductosDeCategoria = modelo.darProductosDeCategoria(categoria);
+        int contador = 0;
+        while (contador < listaProductosDeCategoria.size() && listaProductosDeCategoria.size() != 0) {
+            JButton nuevo = new JButton(" ");
+            nuevo.setMargin(new Insets(-5, -5, -5, -5));
+            nuevo.setBackground(Color.BLACK);
+            nuevo.setForeground(Color.WHITE);
+            nuevo.setText(listaProductosDeCategoria.get(contador).getNombre());
+            nuevo.addActionListener(new ProductoListener());
+            panelProducto.add(nuevo);
+            contador++;
+        }
+        panelProducto.revalidate();
+    }
+
+    private class ProductoListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            // este código se ejecutará al presionar el botón, obtengo cuál botón
+            JButton cual = ((JButton) e.getSource());
+            // código a completar según el botón presionado
+
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_categorias;
@@ -274,11 +317,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JPanel panelProducto;
     private javax.swing.JRadioButton rbtn_ordenAlfabetico;
     private javax.swing.JRadioButton rbtn_ordenPrioridad;
     // End of variables declaration//GEN-END:variables
@@ -286,21 +329,32 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     public void mostrarEnCombo(ArrayList<Categoria> listaCategorias) {
         combo_parteK.removeAllItems();
         for (int i = 0; i < listaCategorias.size(); i++) {
-
             combo_parteK.addItem(listaCategorias.get(i).getDescripcion());
         }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ArrayList<Categoria> lista = new ArrayList<Categoria>();
-        if (rbtn_ordenAlfabetico.isSelected()) {
-            lista = modelo.ordenarPorDescripcion();
-        } else if (rbtn_ordenPrioridad.isSelected()) {
-            lista = modelo.ordenarPorPrioridad();
+        if (evt.getPropertyName().equals("c")) {
+            ArrayList<Categoria> lista = new ArrayList<Categoria>();
+            if (rbtn_ordenAlfabetico.isSelected()) {
+                lista = modelo.ordenarPorDescripcion();
+            } else if (rbtn_ordenPrioridad.isSelected()) {
+                lista = modelo.ordenarPorPrioridad();
+            } else {
+                lista = modelo.getListaCategorias();
+            }
+            mostrarEnCombo(lista);
+
         } else {
-            lista = modelo.getListaCategorias();
+            if (evt.getPropertyName().equals("p")) {
+                int index = combo_parteK.getSelectedIndex();
+                String descripcion = combo_parteK.getSelectedItem().toString();
+                Categoria c = modelo.buscarCategoriaPorDescripcion(descripcion);
+                mostrarProductos(c);
+
+            }
+
         }
-        mostrarEnCombo(lista);
     }
 }
