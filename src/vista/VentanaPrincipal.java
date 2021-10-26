@@ -33,6 +33,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 //        }
 //        combo_parteK.addItemListener(this);
         //mostrarEnCombo(combo_parteK);
+        mostrarEnCombo(modelo.getListaCategorias());
         modelo.addPropertyChangeListener(this);
 
     }
@@ -217,7 +218,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_categoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_categoriasActionPerformed
-        ventanaB ventana = new ventanaB(modelo, combo_parteK);
+        ventanaB ventana = new ventanaB(modelo);
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_categoriasActionPerformed
 
@@ -241,25 +242,14 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     private void rbtn_ordenAlfabeticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ordenAlfabeticoActionPerformed
         ArrayList<Categoria> lista = modelo.ordenarPorDescripcion();
-        combo_parteK.removeAllItems();
-        for (int i = 0; i < lista.size(); i++) {
-            
-            combo_parteK.addItem(lista.get(i).getDescripcion());
-        }
-        
-        
+        mostrarEnCombo(lista);
     }//GEN-LAST:event_rbtn_ordenAlfabeticoActionPerformed
 
     private void rbtn_ordenPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ordenPrioridadActionPerformed
-       ArrayList<Categoria> lista = modelo.ordenarPorPrioridad();
-        combo_parteK.removeAllItems();
-        for (int i = 0; i < lista.size(); i++) {
-            
-            combo_parteK.addItem(lista.get(i).getDescripcion());
-        }
+        ArrayList<Categoria> lista = modelo.ordenarPorPrioridad();
+        mostrarEnCombo(lista);
     }//GEN-LAST:event_rbtn_ordenPrioridadActionPerformed
 
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_categorias;
@@ -293,9 +283,24 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private javax.swing.JRadioButton rbtn_ordenPrioridad;
     // End of variables declaration//GEN-END:variables
 
-    
+    public void mostrarEnCombo(ArrayList<Categoria> listaCategorias) {
+        combo_parteK.removeAllItems();
+        for (int i = 0; i < listaCategorias.size(); i++) {
+
+            combo_parteK.addItem(listaCategorias.get(i).getDescripcion());
+        }
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        //mostrarEnCombo(combo_parteK);
+        ArrayList<Categoria> lista = new ArrayList<Categoria>();
+        if (rbtn_ordenAlfabetico.isSelected()) {
+            lista = modelo.ordenarPorDescripcion();
+        } else if (rbtn_ordenPrioridad.isSelected()) {
+            lista = modelo.ordenarPorPrioridad();
+        } else {
+            lista = modelo.getListaCategorias();
+        }
+        mostrarEnCombo(lista);
     }
 }

@@ -100,9 +100,8 @@ public class Sistema {
     }
 
     public void agregarCategoria(Categoria c) {
-        ArrayList<Categoria> old = this.getListaCategorias();
         this.listaCategorias.add(c);
-        gestor.firePropertyChange("valor", old, this.getListaCategorias());
+        gestor.firePropertyChange("", 0, 1);
     }
 
     public Producto crearProducto(ArrayList<Categoria> lasCategorias, String unNombre, double unPrecio) {
@@ -177,17 +176,6 @@ public class Sistema {
                 }
             
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         return productosDeLaCategoria;
     }
 

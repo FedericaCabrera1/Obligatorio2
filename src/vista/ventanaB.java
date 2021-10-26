@@ -9,17 +9,17 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class ventanaB extends javax.swing.JFrame implements PropertyChangeListener {
+public class ventanaB extends javax.swing.JFrame {
 
     private Sistema modelo;
-    private JComboBox combo;
+//    private JComboBox combo;
 
-    public ventanaB(Sistema elModelo, JComboBox elCombo) {
-        combo = elCombo;
+    public ventanaB(Sistema elModelo) {
+//        combo = elCombo;
         modelo = elModelo;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        modelo.addPropertyChangeListener(this);
+//        modelo.addPropertyChangeListener(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -144,7 +144,6 @@ public class ventanaB extends javax.swing.JFrame implements PropertyChangeListen
                 ta_descripcionCategoria.setText("");
                 sp_prioridadCategoria.setValue(1);
                 ta_detallesCategoria.setText("");
-                mostrarEnCombo(combo);
             }
 
         } else {
@@ -197,19 +196,19 @@ public class ventanaB extends javax.swing.JFrame implements PropertyChangeListen
     private javax.swing.JTextArea ta_detallesCategoria;
     // End of variables declaration//GEN-END:variables
 
-    public void mostrarEnCombo(JComboBox combo) {
-        ArrayList<Categoria> listaCategorias = modelo.getListaCategorias();
-        combo.removeAllItems();
-        for (int i = 0; i < listaCategorias.size(); i++) {
-            
-            combo.addItem(listaCategorias.get(i).getDescripcion());
-        }
-        
-    }
+//    public void mostrarEnCombo(JComboBox combo) {
+//        ArrayList<Categoria> listaCategorias = modelo.getListaCategorias();
+//        combo.removeAllItems();
+//        for (int i = 0; i < listaCategorias.size(); i++) {
+//            
+//            combo.addItem(listaCategorias.get(i).getDescripcion());
+//        }
+//        
+//    }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        //mostrarEnCombo();
-    }
+//    @Override
+//    public void propertyChange(PropertyChangeEvent evt) {
+//        //mostrarEnCombo();
+//    }
 
 }
