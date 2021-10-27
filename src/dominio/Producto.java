@@ -38,5 +38,9 @@ public class Producto {
         this.precio = precio;
     }
     
+    public String toString(){
+        return nombre + " $" + precio;
+    }
+    
     
 }

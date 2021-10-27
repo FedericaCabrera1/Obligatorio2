@@ -191,5 +191,17 @@ public class Sistema {
         }
         return c;
     }
+    
+     public Producto buscarProductoPorNombre(String nombre) {
+        Producto p = null;
+        for (int i = 0; i < listaProductos.size(); i++) {
+            String nombre2 = listaProductos.get(i).getNombre();
+            if (sacarEspacios(nombre).equalsIgnoreCase(sacarEspacios(nombre2))) {
+                p = listaProductos.get(i);
+            }
+        }
+        return p;
+    }
+
 
 }

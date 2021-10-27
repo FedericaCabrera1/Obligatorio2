@@ -1,6 +1,7 @@
 package vista;
 
 import dominio.Categoria;
+import dominio.Pedido;
 import dominio.Producto;
 import dominio.Sistema;
 import java.awt.event.ActionListener;
@@ -11,16 +12,20 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.Collection;
 import javax.swing.*;
 
 public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
-    private JComboBox suggestionComboBox;
+    private ArrayList<String> productos;
+    private int contadorPedidos;
 
     public VentanaPrincipal(Sistema elModelo) {
         modelo = elModelo;
         initComponents();
+        productos = new ArrayList();
+        contadorPedidos = 1;
         this.setSize(900, 500);
 ////        combo_parteK.addItem("rojo");
 ////        combo_parteK.addItem("vede");
@@ -52,9 +57,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btn_elegirCliente = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        lbl_elegirCliente = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txt_observaciones = new javax.swing.JTextField();
         rbtn_ordenAlfabetico = new javax.swing.JRadioButton();
         rbtn_ordenPrioridad = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
@@ -66,11 +71,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         combo_parteK = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         btn_reiniciarPedidos = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lbl_mostrarPedido = new javax.swing.JLabel();
         panelProducto = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        lst_listaProductos = new javax.swing.JList<>();
         btn_eliminarItem = new javax.swing.JButton();
         btn_grabarPedido = new javax.swing.JButton();
 
@@ -93,16 +98,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         });
         jPanel3.add(btn_elegirCliente);
 
-        jLabel4.setText("jLabel4");
-        jPanel3.add(jLabel4);
+        lbl_elegirCliente.setText("Cliente");
+        jPanel3.add(lbl_elegirCliente);
+
+        jLabel3.setText("Observaciones");
         jPanel3.add(jLabel3);
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txt_observaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txt_observacionesActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField2);
+        jPanel3.add(txt_observaciones);
 
         buttonGroup1.add(rbtn_ordenAlfabetico);
         rbtn_ordenAlfabetico.setText("Categorias por orden alfabetico");
@@ -180,23 +187,40 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
         btn_reiniciarPedidos.setText("Reiniciar Pedidos");
         jPanel4.add(btn_reiniciarPedidos);
-        jPanel4.add(jLabel1);
+
+        lbl_mostrarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel4.add(lbl_mostrarPedido);
 
         jPanel2.add(jPanel4);
 
-        panelProducto.setLayout(new java.awt.GridLayout(1, 2));
+        panelProducto.setLayout(new java.awt.GridLayout(3, 2));
         jPanel2.add(panelProducto);
 
         jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
-        jScrollPane1.setViewportView(jList1);
+        lst_listaProductos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lst_listaProductosValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lst_listaProductos);
 
         jPanel7.add(jScrollPane1);
 
         btn_eliminarItem.setText("Eliminar Item");
+        btn_eliminarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarItemActionPerformed(evt);
+            }
+        });
         jPanel7.add(btn_eliminarItem);
 
         btn_grabarPedido.setText("Grabar Pedido");
+        btn_grabarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_grabarPedidoActionPerformed(evt);
+            }
+        });
         jPanel7.add(btn_grabarPedido);
 
         jPanel2.add(jPanel7);
@@ -234,9 +258,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_verPedidosActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txt_observacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_observacionesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txt_observacionesActionPerformed
 
     private void combo_parteKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_parteKActionPerformed
 
@@ -265,6 +289,80 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     }//GEN-LAST:event_combo_parteKItemStateChanged
 
+    private void btn_grabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grabarPedidoActionPerformed
+        // TODO add your handling code here:
+        Collection prod = lst_listaProductos.getSelectedValuesList();
+        String nombreCliente = lbl_elegirCliente.getText();
+        String observaciones = txt_observaciones.getText();
+        if (nombreCliente.equals("") || prod.isEmpty()) {
+            if (nombreCliente.equals("")) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para grabar un pedido. Intente de nuevo", "error", JOptionPane.ERROR_MESSAGE);
+            }
+            if (prod.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Ninguna opcion de la lista fue seleccionada. Seleccione una.", "error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            ArrayList<String> prods = (ArrayList<String>) prod;
+            ArrayList<Producto> products = new ArrayList<Producto>();
+            for (int i = 0; i < prods.size(); i++) {
+                Producto p = modelo.buscarProductoPorNombre(prods.get(i));
+                products.add(p);
+            }
+            Pedido pedido = new Pedido(contadorPedidos, nombreCliente, products, observaciones);
+            JOptionPane.showMessageDialog(null, "Pedido grabado con exito!", "success", JOptionPane.INFORMATION_MESSAGE);
+            String[] listData = {""};
+            lst_listaProductos.setListData(listData);
+            txt_observaciones.setText("");
+            productos.clear();
+            lbl_mostrarPedido.setText("");
+            contadorPedidos++;
+        }
+
+    }//GEN-LAST:event_btn_grabarPedidoActionPerformed
+
+    private void btn_eliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarItemActionPerformed
+        // TODO add your handling code here:
+        int[] prod = lst_listaProductos.getSelectedIndices();
+        if (prod.length == 0) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun item para eliminar. Seleccione uno.", "error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int contador = 0;
+            for (int i=0; i<prod.length; i++){
+                productos.remove(prod[i]-contador);
+                contador++;
+                
+            }
+            String[] listData = {""};
+            lst_listaProductos.setListData(listData);
+            String[] arr = new String[productos.size()];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = productos.get(i);
+            }
+            lst_listaProductos.setListData(arr);
+            lbl_mostrarPedido.setText("Pedido " + contadorPedidos + " $0.0");
+        }
+
+
+    }//GEN-LAST:event_btn_eliminarItemActionPerformed
+
+    private void lst_listaProductosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_listaProductosValueChanged
+        // TODO add your handling code here:
+        Collection prod = lst_listaProductos.getSelectedValuesList();
+        if (prod.size() != 0) {
+            ArrayList<String> prods = (ArrayList<String>) prod;
+            ArrayList<Producto> products = new ArrayList<Producto>();
+            for (int i = 0; i < prods.size(); i++) {
+                Producto p = modelo.buscarProductoPorNombre(prods.get(i));
+                products.add(p);
+            }
+            String nombreCliente = lbl_elegirCliente.getText();
+            String observaciones = txt_observaciones.getText();
+            Pedido p = new Pedido(contadorPedidos, nombreCliente, products, observaciones);
+            lbl_mostrarPedido.setText(p.toString());
+        }
+    }//GEN-LAST:event_lst_listaProductosValueChanged
+
     public void mostrarProductos(Categoria categoria) {
         panelProducto.removeAll();
         panelProducto.revalidate();
@@ -282,6 +380,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             contador++;
         }
         panelProducto.revalidate();
+
     }
 
     private class ProductoListener implements ActionListener {
@@ -290,6 +389,13 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             // este código se ejecutará al presionar el botón, obtengo cuál botón
             JButton cual = ((JButton) e.getSource());
             // código a completar según el botón presionado
+            String producto = cual.getText();
+            productos.add(producto);
+            String[] arr = new String[productos.size()];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = productos.get(i);
+            }
+            lst_listaProductos.setListData(arr);
 
         }
     }
@@ -308,10 +414,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> combo_parteK;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -320,10 +423,13 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lbl_elegirCliente;
+    private javax.swing.JLabel lbl_mostrarPedido;
+    private javax.swing.JList<String> lst_listaProductos;
     private javax.swing.JPanel panelProducto;
     private javax.swing.JRadioButton rbtn_ordenAlfabetico;
     private javax.swing.JRadioButton rbtn_ordenPrioridad;
+    private javax.swing.JTextField txt_observaciones;
     // End of variables declaration//GEN-END:variables
 
     public void mostrarEnCombo(ArrayList<Categoria> listaCategorias) {

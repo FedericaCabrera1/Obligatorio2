@@ -5,9 +5,16 @@ import java.util.ArrayList;
         
 public class Pedido {
     private int numero;
-    private String nombreCliente ;
-    private double totalPrecio;
+    private String nombreCliente;
     private ArrayList<Producto> listaProductos;
+    private String observaciones;
+    
+    public Pedido (int unNumero, String unCliente, ArrayList<Producto> unaListaProductos, String unaObservacion){
+        numero = unNumero;
+        nombreCliente = unCliente;
+        listaProductos = unaListaProductos;
+        observaciones = unaObservacion;
+    }
 
     public int getNumero() {
         return numero;
@@ -25,12 +32,14 @@ public class Pedido {
         this.nombreCliente = nombreCliente;
     }
 
-    public double getTotalPrecio() {
-        return totalPrecio;
-    }
+  
 
-    public void setTotalPrecio(double totalPrecio) {
-        this.totalPrecio = totalPrecio;
+    public double precioTotal() {
+        double precioTotal = 0;
+        for (int i=0; i<this.listaProductos.size(); i++){
+            precioTotal += this.listaProductos.get(i).getPrecio();
+        }
+        return precioTotal;
     }
 
     public ArrayList<Producto> getListaProductos() {
@@ -40,6 +49,11 @@ public class Pedido {
     public void setListaProductos(ArrayList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
     }
+    
+    public String toString(){
+        return "Pedido " + numero + " $" + this.precioTotal();
+    }
+   
     
     
 }
