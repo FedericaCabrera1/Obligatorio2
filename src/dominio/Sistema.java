@@ -12,6 +12,7 @@ public class Sistema {
     private ArrayList<Categoria> listaCategorias;
     private ArrayList<Producto> listaProductos;
     private ArrayList<Pedido> listaPedidos;
+    private Cliente clienteElegido;
     private PropertyChangeSupport gestor = new PropertyChangeSupport(this);
 
     public Sistema() {
@@ -19,6 +20,7 @@ public class Sistema {
         listaCategorias = new ArrayList();
         listaProductos = new ArrayList();
         listaPedidos = new ArrayList();
+        clienteElegido = null;
     }
 
     public ArrayList<Cliente> getListaClientes() {
@@ -44,6 +46,8 @@ public class Sistema {
 
     public void agregarCliente(Cliente c) {
         this.listaClientes.add(c);
+        gestor.firePropertyChange("cl", 0, 1);
+
     }
 
     public boolean verificarNombreUnico(Cliente unCliente) {
@@ -115,6 +119,15 @@ public class Sistema {
 
     }
 
+    public Pedido crearPedido(int unNumero, String unCliente, ArrayList<Producto> unaListaProductos, String unaObservacion) {
+        Pedido p = new Pedido(unNumero, unCliente, unaListaProductos, unaObservacion);
+        return p;
+    }
+
+    public void agregarPedido(Pedido p) {
+        this.listaPedidos.add(p);
+    }
+
     public String sacarEspacios(String s) {
         String res = "";
         for (int j = 0; j < s.length(); j++) {
@@ -147,7 +160,6 @@ public class Sistema {
     }
 
     public class criterioPorPrioridad implements Comparator<Categoria> {
-
         @Override
         public int compare(Categoria c1, Categoria c2) {
             return (int) (c2.getPrioridad() - c1.getPrioridad());
@@ -191,8 +203,8 @@ public class Sistema {
         }
         return c;
     }
-    
-     public Producto buscarProductoPorNombre(String nombre) {
+
+    public Producto buscarProductoPorNombre(String nombre) {
         Producto p = null;
         for (int i = 0; i < listaProductos.size(); i++) {
             String nombre2 = listaProductos.get(i).getNombre();
@@ -203,5 +215,24 @@ public class Sistema {
         return p;
     }
 
+    public ArrayList<Cliente> buscarClientesPorFiltro(String filtro) {
+        ArrayList<Cliente> listaClientesFiltrados = new ArrayList<>();
+        for (int i = 0; i < listaClientes.size(); i++) {
+            Cliente c = listaClientes.get(i);
+            if (c.toStringVacio().contains(filtro)) {
+                listaClientesFiltrados.add(c);
+            }
+        }
+        return listaClientesFiltrados;
+    }
+    
+    public void setClienteElegido(Cliente unCliente){
+        this.clienteElegido = unCliente;
+  
+    }
+    
+    public Cliente getClienteElegido() {
+        return this.clienteElegido;
+    }
 
 }

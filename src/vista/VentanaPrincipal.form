@@ -178,10 +178,13 @@
                 <Property name="rows" type="int" value="2"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="btn_reiniciarPedidos">
+                <Component class="javax.swing.JButton" name="btn_reiniciarPedido">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Reiniciar Pedidos"/>
+                    <Property name="text" type="java.lang.String" value="Reiniciar Pedido"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_reiniciarPedidoActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbl_mostrarPedido">
                   <Properties>

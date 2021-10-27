@@ -38,7 +38,10 @@ public class Cliente {
     }
     
     public String toString(){
-       
        return "nombre: " + this.getNombre() + " direccion: " + this.getDireccion() + " telefono: " + this.getTelefono();
+    }
+    
+    public String toStringVacio(){
+        return this.getNombre() + this.getDireccion() + this.getTelefono();
     }
 }

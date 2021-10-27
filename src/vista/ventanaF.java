@@ -1,21 +1,30 @@
-
 package vista;
 
+import dominio.Cliente;
+import dominio.Pedido;
 import dominio.Sistema;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public class ventanaF extends javax.swing.JFrame {
+public class ventanaF extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
+    private PropertyChangeSupport gestor = new PropertyChangeSupport(this);
+
     public ventanaF(Sistema elModelo) {
         modelo = elModelo;
-        
+
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         list_clientesFiltrados.setListData(modelo.getListaClientes().toArray());
+        modelo.addPropertyChangeListener(this);
+
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -55,6 +64,7 @@ public class ventanaF extends javax.swing.JFrame {
             }
         });
 
+        list_clientesFiltrados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(list_clientesFiltrados);
 
         btn_elegirCliente.setText("ELEGIR CLIENTE");
@@ -108,21 +118,44 @@ public class ventanaF extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void addPropertyChangeListener(PropertyChangeListener lis) {
+        gestor.addPropertyChangeListener(lis);
+    }
+
     private void ta_filtrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ta_filtrarClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ta_filtrarClienteActionPerformed
 
     private void btn_filtrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarClienteActionPerformed
-        // TODO add your handling code here:
+        String[] listData = {""};
+        list_clientesFiltrados.setListData(listData);
+        if (modelo.getListaClientes().size() != 0) {
+            String filtro = modelo.sacarEspacios(ta_filtrarCliente.getText());
+            list_clientesFiltrados.setListData(modelo.buscarClientesPorFiltro(filtro).toArray());
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay clientes para filtrar. Agregue uno", "error", JOptionPane.INFORMATION_MESSAGE);
+            ta_filtrarCliente.setText("");
+            ventanaA ventana = new ventanaA(modelo);
+            ventana.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_btn_filtrarClienteActionPerformed
 
     private void btn_resetearBusquedaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_resetearBusquedaClienteActionPerformed
-        // TODO add your handling code here:
+        String[] listData = {""};
+        list_clientesFiltrados.setListData(listData);
+        ta_filtrarCliente.setText("");
+        list_clientesFiltrados.setListData(modelo.getListaClientes().toArray());
     }//GEN-LAST:event_btn_resetearBusquedaClienteActionPerformed
 
     private void btn_elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elegirClienteActionPerformed
-        
+        Cliente c = (Cliente) list_clientesFiltrados.getSelectedValue();
+        modelo.setClienteElegido(c);
+        gestor.firePropertyChange("s", 0, 1);
+
     }//GEN-LAST:event_btn_elegirClienteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_elegirCliente;
@@ -134,4 +167,14 @@ public class ventanaF extends javax.swing.JFrame {
     private javax.swing.JList list_clientesFiltrados;
     private javax.swing.JTextField ta_filtrarCliente;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("cl")) {
+            String[] listData = {""};
+            list_clientesFiltrados.setListData(listData);
+            String filtro = modelo.sacarEspacios(ta_filtrarCliente.getText());
+            list_clientesFiltrados.setListData(modelo.buscarClientesPorFiltro(filtro).toArray());
+        }
+    }
 }

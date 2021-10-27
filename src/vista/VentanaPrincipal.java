@@ -27,19 +27,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         productos = new ArrayList();
         contadorPedidos = 1;
         this.setSize(900, 500);
-////        combo_parteK.addItem("rojo");
-////        combo_parteK.addItem("vede");
-////        combo_parteK.addItem("azul");
-////        combo_parteK.addItem("amarillo");
-////        combo_parteK.addItem("negro");
-//        combo_parteK.addItemListener(this);
-//        
-//        ArrayList<Categoria> listaCategorias = modelo.getListaCategorias();
-//        for(int i=0; i<listaCategorias.size(); i++){
-//            combo_parteK.addItem(listaCategorias.get(i).getDescripcion());
-//        }
-//        combo_parteK.addItemListener(this);
-        //mostrarEnCombo(combo_parteK);
         mostrarEnCombo(modelo.getListaCategorias());
         modelo.addPropertyChangeListener(this);
 
@@ -70,7 +57,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         jPanel5 = new javax.swing.JPanel();
         combo_parteK = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
-        btn_reiniciarPedidos = new javax.swing.JButton();
+        btn_reiniciarPedido = new javax.swing.JButton();
         lbl_mostrarPedido = new javax.swing.JLabel();
         panelProducto = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -185,8 +172,13 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
         jPanel4.setLayout(new java.awt.GridLayout(2, 1));
 
-        btn_reiniciarPedidos.setText("Reiniciar Pedidos");
-        jPanel4.add(btn_reiniciarPedidos);
+        btn_reiniciarPedido.setText("Reiniciar Pedido");
+        btn_reiniciarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_reiniciarPedidoActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btn_reiniciarPedido);
 
         lbl_mostrarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel4.add(lbl_mostrarPedido);
@@ -254,7 +246,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_btn_productosActionPerformed
 
     private void btn_verPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verPedidosActionPerformed
-        ventanaD ventana = new ventanaD();
+        ventanaD ventana = new ventanaD(modelo);
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_verPedidosActionPerformed
 
@@ -285,8 +277,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             Categoria c = modelo.buscarCategoriaPorDescripcion(descripcion);
             mostrarProductos(c);
         }
-
-
     }//GEN-LAST:event_combo_parteKItemStateChanged
 
     private void btn_grabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grabarPedidoActionPerformed
@@ -306,10 +296,12 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             ArrayList<String> prods = (ArrayList<String>) prod;
             ArrayList<Producto> products = new ArrayList<Producto>();
             for (int i = 0; i < prods.size(); i++) {
-                Producto p = modelo.buscarProductoPorNombre(prods.get(i));
+                String[] producto = prods.get(i).split(" ");
+                Producto p = modelo.buscarProductoPorNombre(producto[0]);
                 products.add(p);
             }
-            Pedido pedido = new Pedido(contadorPedidos, nombreCliente, products, observaciones);
+            Pedido pedido = modelo.crearPedido(contadorPedidos, nombreCliente, products, observaciones);
+            modelo.agregarPedido(pedido);
             JOptionPane.showMessageDialog(null, "Pedido grabado con exito!", "success", JOptionPane.INFORMATION_MESSAGE);
             String[] listData = {""};
             lst_listaProductos.setListData(listData);
@@ -328,10 +320,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningun item para eliminar. Seleccione uno.", "error", JOptionPane.ERROR_MESSAGE);
         } else {
             int contador = 0;
-            for (int i=0; i<prod.length; i++){
-                productos.remove(prod[i]-contador);
+            for (int i = 0; i < prod.length; i++) {
+                productos.remove(prod[i] - contador);
                 contador++;
-                
+
             }
             String[] listData = {""};
             lst_listaProductos.setListData(listData);
@@ -342,8 +334,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             lst_listaProductos.setListData(arr);
             lbl_mostrarPedido.setText("Pedido " + contadorPedidos + " $0.0");
         }
-
-
     }//GEN-LAST:event_btn_eliminarItemActionPerformed
 
     private void lst_listaProductosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_listaProductosValueChanged
@@ -353,7 +343,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             ArrayList<String> prods = (ArrayList<String>) prod;
             ArrayList<Producto> products = new ArrayList<Producto>();
             for (int i = 0; i < prods.size(); i++) {
-                Producto p = modelo.buscarProductoPorNombre(prods.get(i));
+                String[] producto = prods.get(i).split(" ");
+                Producto p = modelo.buscarProductoPorNombre(producto[0]);
                 products.add(p);
             }
             String nombreCliente = lbl_elegirCliente.getText();
@@ -362,6 +353,13 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             lbl_mostrarPedido.setText(p.toString());
         }
     }//GEN-LAST:event_lst_listaProductosValueChanged
+
+    private void btn_reiniciarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reiniciarPedidoActionPerformed
+        String[] listData = {""};
+        lst_listaProductos.setListData(listData);
+        lbl_mostrarPedido.setText("");
+
+    }//GEN-LAST:event_btn_reiniciarPedidoActionPerformed
 
     public void mostrarProductos(Categoria categoria) {
         panelProducto.removeAll();
@@ -374,7 +372,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             nuevo.setMargin(new Insets(-5, -5, -5, -5));
             nuevo.setBackground(Color.BLACK);
             nuevo.setForeground(Color.WHITE);
-            nuevo.setText(listaProductosDeCategoria.get(contador).getNombre());
+            nuevo.setText(listaProductosDeCategoria.get(contador).toString());
             nuevo.addActionListener(new ProductoListener());
             panelProducto.add(nuevo);
             contador++;
@@ -407,7 +405,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private javax.swing.JButton btn_eliminarItem;
     private javax.swing.JButton btn_grabarPedido;
     private javax.swing.JButton btn_productos;
-    private javax.swing.JButton btn_reiniciarPedidos;
+    private javax.swing.JButton btn_reiniciarPedido;
     private javax.swing.JButton btn_verPedidos;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -459,6 +457,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                 Categoria c = modelo.buscarCategoriaPorDescripcion(descripcion);
                 mostrarProductos(c);
 
+            }
+            else {
+                if (evt.getPropertyName().equals("s")){
+                    lbl_elegirCliente.setText(modelo.getClienteElegido().toString());
+                }
             }
 
         }
