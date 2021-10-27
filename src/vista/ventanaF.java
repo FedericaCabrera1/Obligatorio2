@@ -13,11 +13,9 @@ import javax.swing.JOptionPane;
 public class ventanaF extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
-    private PropertyChangeSupport gestor = new PropertyChangeSupport(this);
 
     public ventanaF(Sistema elModelo) {
         modelo = elModelo;
-
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         list_clientesFiltrados.setListData(modelo.getListaClientes().toArray());
@@ -118,9 +116,6 @@ public class ventanaF extends javax.swing.JFrame implements PropertyChangeListen
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void addPropertyChangeListener(PropertyChangeListener lis) {
-        gestor.addPropertyChangeListener(lis);
-    }
 
     private void ta_filtrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ta_filtrarClienteActionPerformed
         // TODO add your handling code here:
@@ -151,8 +146,7 @@ public class ventanaF extends javax.swing.JFrame implements PropertyChangeListen
 
     private void btn_elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elegirClienteActionPerformed
         Cliente c = (Cliente) list_clientesFiltrados.getSelectedValue();
-        modelo.setClienteElegido(c);
-        gestor.firePropertyChange("s", 0, 1);
+        modelo.clienteElegido(c);
 
     }//GEN-LAST:event_btn_elegirClienteActionPerformed
 

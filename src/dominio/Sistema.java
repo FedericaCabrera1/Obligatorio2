@@ -12,7 +12,6 @@ public class Sistema {
     private ArrayList<Categoria> listaCategorias;
     private ArrayList<Producto> listaProductos;
     private ArrayList<Pedido> listaPedidos;
-    private Cliente clienteElegido;
     private PropertyChangeSupport gestor = new PropertyChangeSupport(this);
 
     public Sistema() {
@@ -20,7 +19,6 @@ public class Sistema {
         listaCategorias = new ArrayList();
         listaProductos = new ArrayList();
         listaPedidos = new ArrayList();
-        clienteElegido = null;
     }
 
     public ArrayList<Cliente> getListaClientes() {
@@ -126,6 +124,7 @@ public class Sistema {
 
     public void agregarPedido(Pedido p) {
         this.listaPedidos.add(p);
+        gestor.firePropertyChange("pe", 0, 1);
     }
 
     public String sacarEspacios(String s) {
@@ -160,6 +159,7 @@ public class Sistema {
     }
 
     public class criterioPorPrioridad implements Comparator<Categoria> {
+
         @Override
         public int compare(Categoria c1, Categoria c2) {
             return (int) (c2.getPrioridad() - c1.getPrioridad());
@@ -226,13 +226,10 @@ public class Sistema {
         return listaClientesFiltrados;
     }
     
-    public void setClienteElegido(Cliente unCliente){
-        this.clienteElegido = unCliente;
+    public void clienteElegido(Cliente c){
+        Cliente clienteViejo = new Cliente ("", "", "");
+        gestor.firePropertyChange("cliente", clienteViejo, c);
+    }
   
-    }
-    
-    public Cliente getClienteElegido() {
-        return this.clienteElegido;
-    }
 
 }

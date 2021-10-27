@@ -1,6 +1,7 @@
 package vista;
 
 import dominio.Categoria;
+import dominio.Cliente;
 import dominio.Pedido;
 import dominio.Producto;
 import dominio.Sistema;
@@ -459,8 +460,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
             }
             else {
-                if (evt.getPropertyName().equals("s")){
-                    lbl_elegirCliente.setText(modelo.getClienteElegido().toString());
+                if (evt.getPropertyName().equals("cliente")){
+                    Cliente c = (Cliente)evt.getNewValue();
+                    lbl_elegirCliente.setText(c.toString());
                 }
             }
 

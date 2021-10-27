@@ -7,6 +7,8 @@ package vista;
 
 import dominio.Pedido;
 import dominio.Sistema;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -14,7 +16,7 @@ import javax.swing.JFrame;
  *
  * @author federicacabrera
  */
-public class ventanaD extends javax.swing.JFrame {
+public class ventanaD extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
 
@@ -24,6 +26,7 @@ public class ventanaD extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         panelDetallesPedido.setVisible(false);
         lst_pedidos.setListData(modelo.getListaPedidos().toArray());
+        modelo.addPropertyChangeListener(this);
     }
 
     /**
@@ -166,7 +169,7 @@ public class ventanaD extends javax.swing.JFrame {
         lbl_nombreCliente.setText("");
         String[] listData = {""};
         lst_productosPedido.setListData(listData);
-        
+
         panelDetallesPedido.setVisible(true);
         Pedido p = (Pedido) lst_pedidos.getSelectedValue();
         lbl_nroPedido.setText(String.valueOf(p.getNumero()));
@@ -192,4 +195,11 @@ public class ventanaD extends javax.swing.JFrame {
     private javax.swing.JList lst_productosPedido;
     private javax.swing.JPanel panelDetallesPedido;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        String[] listData = {""};
+        lst_pedidos.setListData(listData);
+        lst_pedidos.setListData(modelo.getListaPedidos().toArray());
+    }
 }

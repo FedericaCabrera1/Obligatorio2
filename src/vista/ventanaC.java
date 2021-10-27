@@ -10,11 +10,13 @@ import javax.swing.JFrame;
 
 import dominio.Categoria;
 import dominio.Producto;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.JOptionPane;
 
-public class ventanaC extends javax.swing.JFrame {
+public class ventanaC extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
 
@@ -23,6 +25,7 @@ public class ventanaC extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         list_categoriasProducto.setListData(modelo.getListaCategorias().toArray());
+        modelo.addPropertyChangeListener(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -174,7 +177,7 @@ public class ventanaC extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Producto agregado con éxito!", "success", JOptionPane.INFORMATION_MESSAGE);
                     ta_nombreProducto.setText("");
                     ta_precioProducto.setText("");
-                    
+
                 }
             }
 
@@ -204,4 +207,11 @@ public class ventanaC extends javax.swing.JFrame {
     private javax.swing.JTextField ta_nombreProducto;
     private javax.swing.JTextField ta_precioProducto;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        String[] listData = {""};
+        list_categoriasProducto.setListData(listData);
+        list_categoriasProducto.setListData(modelo.getListaCategorias().toArray());
+    }
 }
