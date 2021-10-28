@@ -17,15 +17,12 @@ import java.util.Collection;
 import javax.swing.*;
 
 public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChangeListener {
-
     private Sistema modelo;
     private ArrayList<String> productos;
     private int contadorPedidos;
 
     public VentanaPrincipal(Sistema elModelo) {
         modelo = elModelo;
-        
-        
         initComponents();
         productos = new ArrayList();
         contadorPedidos = 1;
