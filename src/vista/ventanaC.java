@@ -177,7 +177,6 @@ public class ventanaC extends javax.swing.JFrame implements PropertyChangeListen
                     JOptionPane.showMessageDialog(null, "Producto agregado con éxito!", "success", JOptionPane.INFORMATION_MESSAGE);
                     ta_nombreProducto.setText("");
                     ta_precioProducto.setText("");
-
                 }
             }
 

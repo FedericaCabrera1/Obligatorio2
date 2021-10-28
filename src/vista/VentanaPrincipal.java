@@ -24,6 +24,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     public VentanaPrincipal(Sistema elModelo) {
         modelo = elModelo;
+        
+        
         initComponents();
         productos = new ArrayList();
         contadorPedidos = 1;
@@ -85,8 +87,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             }
         });
         jPanel3.add(btn_elegirCliente);
-
-        lbl_elegirCliente.setText("Cliente");
         jPanel3.add(lbl_elegirCliente);
 
         jLabel3.setText("Observaciones");
@@ -359,6 +359,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         String[] listData = {""};
         lst_listaProductos.setListData(listData);
         lbl_mostrarPedido.setText("");
+        lbl_elegirCliente.setText("");
 
     }//GEN-LAST:event_btn_reiniciarPedidoActionPerformed
 
