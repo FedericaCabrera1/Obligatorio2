@@ -219,7 +219,7 @@ public class Sistema {
         ArrayList<Cliente> listaClientesFiltrados = new ArrayList<>();
         for (int i = 0; i < listaClientes.size(); i++) {
             Cliente c = listaClientes.get(i);
-            if (c.toStringVacio().contains(filtro)) {
+            if (c.getNombre().toLowerCase().contains(filtro.toLowerCase())) {
                 listaClientesFiltrados.add(c);
             }
         }

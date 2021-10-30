@@ -280,8 +280,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             ArrayList<String> prods = (ArrayList<String>) prod;
             ArrayList<Producto> products = new ArrayList<Producto>();
             for (int i = 0; i < prods.size(); i++) {
-                String[] producto = prods.get(i).split(" ");
-                Producto p = modelo.buscarProductoPorNombre(producto[0]);
+                String producto = prods.get(i);
+                int pos = 0;
+                String nombre = "";
+                for (int j = producto.length() - 1; j > 0 && nombre.equals(""); j--) {
+                    if (producto.charAt(j) == ' ') {
+                        pos = j;
+                        nombre = producto.substring(0, pos);
+                    }
+                }
+                Producto p = modelo.buscarProductoPorNombre(nombre);
                 products.add(p);
             }
             Pedido pedido = modelo.crearPedido(contadorPedidos, nombreCliente, products, observaciones);
@@ -327,12 +335,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             ArrayList<String> prods = (ArrayList<String>) prod;
             ArrayList<Producto> products = new ArrayList<Producto>();
             for (int i = 0; i < prods.size(); i++) {
-//                String[] producto = prods.get(i).split(" ");
                 String producto = prods.get(i);
                 int pos = 0;
                 String nombre = "";
-                for (int j=producto.length()-1; j>0 && nombre.equals(""); j--){
-                    if(producto.charAt(j)==' '){
+                for (int j = producto.length() - 1; j > 0 && nombre.equals(""); j--) {
+                    if (producto.charAt(j) == ' ') {
                         pos = j;
                         nombre = producto.substring(0, pos);
                     }
