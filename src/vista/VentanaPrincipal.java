@@ -17,6 +17,7 @@ import java.util.Collection;
 import javax.swing.*;
 
 public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChangeListener {
+
     private Sistema modelo;
     private ArrayList<String> productos;
     private int contadorPedidos;
@@ -28,6 +29,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         contadorPedidos = 1;
         this.setSize(900, 500);
         mostrarEnCombo(modelo.getListaCategorias());
+        if (modelo.getListaCategorias().size() != 0) {
+            String descripcion = combo_parteK.getSelectedItem().toString();
+            Categoria c = modelo.buscarCategoriaPorDescripcion(descripcion);
+            mostrarProductos(c);
+        }
         modelo.addPropertyChangeListener(this);
 
     }
@@ -159,11 +165,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                 combo_parteKItemStateChanged(evt);
             }
         });
-        combo_parteK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combo_parteKActionPerformed(evt);
-            }
-        });
         jPanel5.add(combo_parteK);
 
         jPanel2.add(jPanel5);
@@ -252,11 +253,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_observacionesActionPerformed
 
-    private void combo_parteKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_parteKActionPerformed
-
-
-    }//GEN-LAST:event_combo_parteKActionPerformed
-
     private void rbtn_ordenAlfabeticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtn_ordenAlfabeticoActionPerformed
         ArrayList<Categoria> lista = modelo.ordenarPorDescripcion();
         mostrarEnCombo(lista);
@@ -266,16 +262,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         ArrayList<Categoria> lista = modelo.ordenarPorPrioridad();
         mostrarEnCombo(lista);
     }//GEN-LAST:event_rbtn_ordenPrioridadActionPerformed
-
-    private void combo_parteKItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_parteKItemStateChanged
-        // TODO add your handling code here:
-        int index = combo_parteK.getSelectedIndex();
-        if (index != -1) {
-            String descripcion = combo_parteK.getSelectedItem().toString();
-            Categoria c = modelo.buscarCategoriaPorDescripcion(descripcion);
-            mostrarProductos(c);
-        }
-    }//GEN-LAST:event_combo_parteKItemStateChanged
 
     private void btn_grabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grabarPedidoActionPerformed
         // TODO add your handling code here:
@@ -360,6 +346,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     }//GEN-LAST:event_btn_reiniciarPedidoActionPerformed
 
+    private void combo_parteKItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_parteKItemStateChanged
+        // TODO add your handling code here:
+        int index = combo_parteK.getSelectedIndex();
+        if (index != -1) {
+            String descripcion = combo_parteK.getSelectedItem().toString();
+            Categoria c = modelo.buscarCategoriaPorDescripcion(descripcion);
+            mostrarProductos(c);
+        }
+    }//GEN-LAST:event_combo_parteKItemStateChanged
+
     public void mostrarProductos(Categoria categoria) {
         panelProducto.removeAll();
         panelProducto.revalidate();
@@ -432,6 +428,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     public void mostrarEnCombo(ArrayList<Categoria> listaCategorias) {
         combo_parteK.removeAllItems();
         for (int i = 0; i < listaCategorias.size(); i++) {
+            String descripcion = listaCategorias.get(i).getDescripcion();
             combo_parteK.addItem(listaCategorias.get(i).getDescripcion());
         }
     }
@@ -456,10 +453,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                 Categoria c = modelo.buscarCategoriaPorDescripcion(descripcion);
                 mostrarProductos(c);
 
-            }
-            else {
-                if (evt.getPropertyName().equals("cliente")){
-                    Cliente c = (Cliente)evt.getNewValue();
+            } else {
+                if (evt.getPropertyName().equals("cliente")) {
+                    Cliente c = (Cliente) evt.getNewValue();
                     lbl_elegirCliente.setText(c.toString());
                 }
             }
