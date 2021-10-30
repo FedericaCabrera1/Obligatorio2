@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +27,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -155,7 +157,7 @@ public class Menu extends javax.swing.JFrame {
                     aux2++;
                     if (br.ready()) {
                         line = br.readLine();
-                        
+
                     }
                     fields = line.split(";");
                 }
