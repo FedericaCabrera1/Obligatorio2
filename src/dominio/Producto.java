@@ -4,10 +4,11 @@ package dominio;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Producto implements Serializable{
+public class Producto implements Serializable {
     private ArrayList<Categoria> categorias;
     private String nombre;
     private double precio;
+    private static final long serialVersionUID = 11111;
 
     public Producto(ArrayList<Categoria> lasCategorias, String unNombre, double unPrecio){
         categorias = lasCategorias;

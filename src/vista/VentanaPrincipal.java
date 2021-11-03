@@ -41,6 +41,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                         FileOutputStream archivo = new FileOutputStream("Datos");
                         ObjectOutputStream datos = new ObjectOutputStream(archivo);
                         datos.writeObject(modelo);
+                        datos.close();
                     } catch (IOException exception) {
                         JOptionPane.showMessageDialog(null, "Error al guardar datos", "Salir", JOptionPane.INFORMATION_MESSAGE);
                     }

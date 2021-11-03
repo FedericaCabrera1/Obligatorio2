@@ -7,6 +7,7 @@ public class Categoria implements Serializable {
     private String descripcion;
     private int prioridad;
     private String detalles;
+    private static final long serialVersionUID = 11111;
 
     
     public Categoria(String unaDescripcion, int unaPrioridad, String unosDetalles){

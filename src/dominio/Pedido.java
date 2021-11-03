@@ -9,6 +9,7 @@ public class Pedido implements Serializable{
     private String nombreCliente;
     private ArrayList<Producto> listaProductos;
     private String observaciones;
+    private static final long serialVersionUID = 11111;
     
     public Pedido (int unNumero, String unCliente, ArrayList<Producto> unaListaProductos, String unaObservacion){
         numero = unNumero;
@@ -32,8 +33,6 @@ public class Pedido implements Serializable{
     public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
-
-  
 
     public double precioTotal() {
         double precioTotal = 0;
