@@ -177,6 +177,7 @@ public class ventanaD extends javax.swing.JFrame implements PropertyChangeListen
             lbl_totalPedido.setText(String.valueOf(p.precioTotal()));
             lbl_nombreCliente.setText(p.getNombreCliente());
             lst_productosPedido.setListData(p.getListaProductos().toArray());
+
         }
 
     }//GEN-LAST:event_lst_pedidosValueChanged
