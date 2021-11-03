@@ -104,12 +104,16 @@ public class Menu extends javax.swing.JFrame {
         Sistema s = new Sistema();
         VentanaPrincipal ventana = new VentanaPrincipal(s, 1);
         ventana.setVisible(true);
+        dispose();
+
     }//GEN-LAST:event_btn_sinDatosActionPerformed
 
     private void btn_datosPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datosPruebaActionPerformed
         Sistema s = datosPrecargados();
         VentanaPrincipal ventana = new VentanaPrincipal(s, 1);
         ventana.setVisible(true);
+        dispose();
+
     }//GEN-LAST:event_btn_datosPruebaActionPerformed
 
     public Sistema datosPrecargados() {
@@ -179,10 +183,12 @@ public class Menu extends javax.swing.JFrame {
         try {
             Sistema s = recuperarDatos();
             int cantidadPedidos = s.getListaPedidos().size();
-            VentanaPrincipal ventana = new VentanaPrincipal(s, cantidadPedidos+1);
+            VentanaPrincipal ventana = new VentanaPrincipal(s, cantidadPedidos + 1);
             ventana.setVisible(true);
+            dispose();
+
         } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos", "Salir", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar datos", "Salir", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btn_datosPreviosActionPerformed
@@ -193,9 +199,12 @@ public class Menu extends javax.swing.JFrame {
             FileInputStream archivo = new FileInputStream("Datos");
             ObjectInputStream datos = new ObjectInputStream(archivo);
             s = (Sistema) datos.readObject();
+            
+
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos", "Salir", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar datos", "Salir", JOptionPane.ERROR_MESSAGE);
         }
+
         return s;
     }
 

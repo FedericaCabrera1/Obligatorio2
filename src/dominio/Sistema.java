@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Sistema implements Serializable{
+public class Sistema implements Serializable {
 
     private ArrayList<Cliente> listaClientes;
     private ArrayList<Categoria> listaCategorias;
     private ArrayList<Producto> listaProductos;
     private ArrayList<Pedido> listaPedidos;
-    private PropertyChangeSupport gestor = new PropertyChangeSupport(this);
+    private transient PropertyChangeSupport gestor = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 11111;
 
     public Sistema() {
@@ -161,6 +161,7 @@ public class Sistema implements Serializable{
     }
 
     public class criterioPorPrioridad implements Comparator<Categoria> {
+
         @Override
         public int compare(Categoria c1, Categoria c2) {
             return (int) (c2.getPrioridad() - c1.getPrioridad());
@@ -173,7 +174,11 @@ public class Sistema implements Serializable{
     }
 
     public void addPropertyChangeListener(PropertyChangeListener lis) {
+        if (gestor == null) {
+            gestor = new PropertyChangeSupport(this);
+        }
         gestor.addPropertyChangeListener(lis);
+
     }
 
     public ArrayList<Producto> darProductosDeCategoria(Categoria c) {
@@ -226,11 +231,10 @@ public class Sistema implements Serializable{
         }
         return listaClientesFiltrados;
     }
-    
-    public void clienteElegido(Cliente c){
-        Cliente clienteViejo = new Cliente ("", "", "");
+
+    public void clienteElegido(Cliente c) {
+        Cliente clienteViejo = new Cliente("", "", "");
         gestor.firePropertyChange("cliente", clienteViejo, c);
     }
-  
 
 }

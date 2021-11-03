@@ -207,7 +207,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
         jPanel2.add(jPanel4);
 
-        panelProducto.setLayout(new java.awt.GridLayout(3, 2));
+        panelProducto.setLayout(new java.awt.GridLayout(3, 0));
         jPanel2.add(panelProducto);
 
         jPanel7.setLayout(new java.awt.GridLayout(1, 0));
