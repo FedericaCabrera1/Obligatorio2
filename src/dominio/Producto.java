@@ -1,9 +1,10 @@
 
 package dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Producto {
+public class Producto implements Serializable{
     private ArrayList<Categoria> categorias;
     private String nombre;
     private double precio;

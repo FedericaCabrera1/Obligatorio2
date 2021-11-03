@@ -1,0 +1,17 @@
+Ana Garcia18 de Julio 123499123123
+Luis GomezCuareim 1111987654321
+Pedro SanchezMercedes 99099112233
+;
+descripción: Bebida  prioridad: 3 detalles: Botella o jarra
+descripción: Empanada  prioridad: 1 detalles: Fabricadas artesalmente
+descripción: Postre individual prioridad: 3 detalles: Para una persona
+descripción: Vegano prioridad: 2 detalles: Con ingredientes veganos
+;
+Empanada de Queso $100.0
+Empanada de Carne $120.0
+Empanada dulce $110.0
+Jugo de naranja $150.0
+Empanada de chocolate $110.0
+Empanada Vegetal $120.0
+;
+Pedido 1 $330.0

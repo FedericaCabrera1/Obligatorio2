@@ -21,7 +21,6 @@ import vista.Menu;
 import vista.VentanaPrincipal;
 
 public class Prueba {
-
     public static void main(String[] args) {
         Menu menu = new Menu();
         menu.setVisible(true);

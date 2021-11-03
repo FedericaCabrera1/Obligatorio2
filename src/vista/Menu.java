@@ -7,10 +7,14 @@ package vista;
 
 import dominio.Categoria;
 import dominio.Cliente;
+import dominio.Pedido;
 import dominio.Producto;
 import dominio.Sistema;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JFrame;
@@ -98,13 +102,13 @@ public class Menu extends javax.swing.JFrame {
 
     private void btn_sinDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sinDatosActionPerformed
         Sistema s = new Sistema();
-        VentanaPrincipal ventana = new VentanaPrincipal(s);
+        VentanaPrincipal ventana = new VentanaPrincipal(s, 1);
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_sinDatosActionPerformed
 
     private void btn_datosPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datosPruebaActionPerformed
         Sistema s = datosPrecargados();
-        VentanaPrincipal ventana = new VentanaPrincipal(s);
+        VentanaPrincipal ventana = new VentanaPrincipal(s, 1);
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_datosPruebaActionPerformed
 
@@ -172,41 +176,27 @@ public class Menu extends javax.swing.JFrame {
     }
     private void btn_datosPreviosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datosPreviosActionPerformed
         // TODO add your handling code here:
+        try {
+            Sistema s = recuperarDatos();
+            int cantidadPedidos = s.getListaPedidos().size();
+            VentanaPrincipal ventana = new VentanaPrincipal(s, cantidadPedidos+1);
+            ventana.setVisible(true);
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar datos", "Salir", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }//GEN-LAST:event_btn_datosPreviosActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    public Sistema recuperarDatos() throws ClassNotFoundException {
+        Sistema s = new Sistema();
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            FileInputStream archivo = new FileInputStream("Datos");
+            ObjectInputStream datos = new ObjectInputStream(archivo);
+            s = (Sistema) datos.readObject();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar datos", "Salir", JOptionPane.INFORMATION_MESSAGE);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu().setVisible(true);
-            }
-        });
+        return s;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

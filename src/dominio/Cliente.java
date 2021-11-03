@@ -1,7 +1,9 @@
 
 package dominio;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable {
     private String nombre;
     private String direccion;
     private String telefono;

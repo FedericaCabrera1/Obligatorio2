@@ -13,6 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import java.awt.event.*;
 import java.awt.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Collection;
 import javax.swing.*;
 
@@ -22,12 +25,31 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private ArrayList<String> productos;
     private int contadorPedidos;
 
-    public VentanaPrincipal(Sistema elModelo) {
+    public VentanaPrincipal(Sistema elModelo, int contador) {
         modelo = elModelo;
         initComponents();
         productos = new ArrayList();
-        contadorPedidos = 1;
+        contadorPedidos = contador;
         this.setSize(900, 500);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                if (JOptionPane.showConfirmDialog(null,
+                        "¿Está seguro de que desea salir del sistema?", "Salir",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                    try {
+                        FileOutputStream archivo = new FileOutputStream("Datos");
+                        ObjectOutputStream datos = new ObjectOutputStream(archivo);
+                        datos.writeObject(modelo);
+                    } catch (IOException exception) {
+                        JOptionPane.showMessageDialog(null, "Error al guardar datos", "Salir", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    System.exit(0);
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
         mostrarEnCombo(modelo.getListaCategorias());
         if (modelo.getListaCategorias().size() != 0) {
             String descripcion = combo_parteK.getSelectedItem().toString();
@@ -472,7 +494,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             } else {
                 if (evt.getPropertyName().equals("cliente")) {
                     Cliente c = (Cliente) evt.getNewValue();
-                    lbl_elegirCliente.setText(c.toString());
+                    if (c != null) {
+                        lbl_elegirCliente.setText(c.toString());
+                    }
                 }
             }
 

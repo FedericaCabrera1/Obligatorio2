@@ -2,11 +2,12 @@ package dominio;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Sistema {
+public class Sistema implements Serializable{
 
     private ArrayList<Cliente> listaClientes;
     private ArrayList<Categoria> listaCategorias;
@@ -159,7 +160,6 @@ public class Sistema {
     }
 
     public class criterioPorPrioridad implements Comparator<Categoria> {
-
         @Override
         public int compare(Categoria c1, Categoria c2) {
             return (int) (c2.getPrioridad() - c1.getPrioridad());
