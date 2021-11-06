@@ -14,6 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
 
 public class ventanaC extends javax.swing.JFrame implements PropertyChangeListener {
@@ -165,7 +166,13 @@ public class ventanaC extends javax.swing.JFrame implements PropertyChangeListen
                 JOptionPane.showMessageDialog(null, "Error en el formato del precio. Reingrese ", "error", JOptionPane.ERROR_MESSAGE);
                 ta_precioProducto.setText("");
             } else {
-                Producto p = modelo.crearProducto((ArrayList<Categoria>) (categorias), res, Double.parseDouble(precio));
+                ArrayList<Categoria> Arraycategorias = new ArrayList();
+                Iterator<Categoria> it = categorias.iterator();
+                while(it.hasNext()){
+                    Arraycategorias.add((Categoria) it.next());
+                }
+                
+                Producto p = modelo.crearProducto(Arraycategorias, res, Double.parseDouble(precio));
                 boolean esUnico = modelo.verificarNombreUnicoProducto(p);
 
                 if (!esUnico) {
