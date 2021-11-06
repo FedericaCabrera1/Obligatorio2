@@ -167,12 +167,12 @@ public class ventanaC extends javax.swing.JFrame implements PropertyChangeListen
                 ta_precioProducto.setText("");
             } else {
                 ArrayList<Categoria> Arraycategorias = new ArrayList();
-                Iterator<Categoria> it = categorias.iterator();
-                while(it.hasNext()){
-                    Arraycategorias.add((Categoria) it.next());
-                }
+//                Iterator<Categoria> it = categorias.iterator();
+//                while(it.hasNext()){
+//                    Arraycategorias.add((Categoria) it.next());
+//                }
                 
-                Producto p = modelo.crearProducto(Arraycategorias, res, Double.parseDouble(precio));
+                Producto p = modelo.crearProducto((ArrayList<Categoria>) (categorias), res, Double.parseDouble(precio));
                 boolean esUnico = modelo.verificarNombreUnicoProducto(p);
 
                 if (!esUnico) {

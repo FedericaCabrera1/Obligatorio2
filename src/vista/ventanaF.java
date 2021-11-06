@@ -148,8 +148,6 @@ public class ventanaF extends javax.swing.JFrame implements PropertyChangeListen
         Cliente c = (Cliente) list_clientesFiltrados.getSelectedValue();
         modelo.clienteElegido(c);
         dispose();
-        
-
     }//GEN-LAST:event_btn_elegirClienteActionPerformed
 
 

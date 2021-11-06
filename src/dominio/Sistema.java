@@ -180,7 +180,7 @@ public class Sistema implements Serializable {
         gestor.addPropertyChangeListener(lis);
 
     }
-
+    
     public ArrayList<Producto> darProductosDeCategoria(Categoria c) {
         ArrayList<Producto> productosDeLaCategoria = new ArrayList<Producto>();
         for (int i = 0; i < this.listaProductos.size(); i++) {

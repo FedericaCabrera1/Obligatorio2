@@ -301,32 +301,23 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             }
 
         } else {
-//            ArrayList<String> prods = (ArrayList<String>) prod;
+            ArrayList<String> prods = (ArrayList<String>) prod;
             ArrayList<Producto> products = new ArrayList<Producto>();
-//            for (int i = 0; i < prods.size(); i++) {
-//                String producto = prods.get(i);
-//                int pos = 0;
-//                String nombre = "";
-//                for (int j = producto.length() - 1; j > 0 && nombre.equals(""); j--) {
-//                    if (producto.charAt(j) == ' ') {
-//                        pos = j;
-//                        nombre = producto.substring(0, pos);
-//                    }
-//                }
-//                Producto p = modelo.buscarProductoPorNombre(nombre);
-//                products.add(p);
-//                
-//            }
-            Iterator<Producto> it = prod.iterator();
-                while(it.hasNext()){
-                    products.add((Producto) it.next());
+            for (int i = 0; i < prods.size(); i++) {
+                String producto = prods.get(i);
+                int pos = 0;
+                String nombre = "";
+                for (int j = producto.length() - 1; j > 0 && nombre.equals(""); j--) {
+                    if (producto.charAt(j) == ' ') {
+                        pos = j;
+                        nombre = producto.substring(0, pos);
+                    }
+                }
+                Producto p = modelo.buscarProductoPorNombre(nombre);
+                products.add(p);
+                
             }
-//            ArrayList<Producto> list = new ArrayList<>();
-//            ListModel cat = lst_listaProductos.getModel();
-//            for(int i=0; i<cat.getSize();i++){
-//                products.add(((Producto)cat.getElementAt(i)));
-//            }
-            
+  
             Pedido pedido = modelo.crearPedido(contadorPedidos, nombreCliente, products, observaciones);
             modelo.agregarPedido(pedido);
             JOptionPane.showMessageDialog(null, "Pedido grabado con exito!", "success", JOptionPane.INFORMATION_MESSAGE);
