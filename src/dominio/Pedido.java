@@ -1,17 +1,17 @@
-
 package dominio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-        
-public class Pedido implements Serializable{
+
+public class Pedido implements Serializable {
+
     private int numero;
     private String nombreCliente;
     private ArrayList<Producto> listaProductos;
     private String observaciones;
     private static final long serialVersionUID = 11111;
-    
-    public Pedido (int unNumero, String unCliente, ArrayList<Producto> unaListaProductos, String unaObservacion){
+
+    public Pedido(int unNumero, String unCliente, ArrayList<Producto> unaListaProductos, String unaObservacion) {
         numero = unNumero;
         nombreCliente = unCliente;
         listaProductos = unaListaProductos;
@@ -34,14 +34,6 @@ public class Pedido implements Serializable{
         this.nombreCliente = nombreCliente;
     }
 
-    public double precioTotal() {
-        double precioTotal = 0;
-        for (int i=0; i<this.listaProductos.size(); i++){
-            precioTotal += this.listaProductos.get(i).getPrecio();
-        }
-        return precioTotal;
-    }
-
     public ArrayList<Producto> getListaProductos() {
         return listaProductos;
     }
@@ -49,11 +41,17 @@ public class Pedido implements Serializable{
     public void setListaProductos(ArrayList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
     }
-    
-    public String toString(){
-        return "Pedido " + numero + " $" + this.precioTotal();
+
+    public double precioTotal() {
+        double precioTotal = 0;
+        for (int i = 0; i < this.listaProductos.size(); i++) {
+            precioTotal += this.listaProductos.get(i).getPrecio();
+        }
+        return precioTotal;
     }
-   
-    
-    
+
+    public String toString() {
+        return numero + ". " + this.getNombreCliente();
+    }
+
 }

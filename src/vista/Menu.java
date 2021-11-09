@@ -51,6 +51,7 @@ public class Menu extends javax.swing.JFrame {
         jButton3.setText("jButton3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         btn_sinDatos.setText("Sistema vacío");
         btn_sinDatos.addActionListener(new java.awt.event.ActionListener() {

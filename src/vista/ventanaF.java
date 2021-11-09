@@ -37,6 +37,7 @@ public class ventanaF extends javax.swing.JFrame implements PropertyChangeListen
         btn_elegirCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         lbl_titVentanaF.setText("LISTA DE CLIENTES:");
 
