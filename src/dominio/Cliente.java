@@ -43,8 +43,4 @@ public class Cliente implements Serializable {
     public String toString(){
        return this.getNombre() + " (" + this.getDireccion() + " - " + this.getTelefono() + ")";
     }
-    
-    public String toStringVacio(){
-        return this.getNombre() + this.getDireccion() + this.getTelefono();
-    }
 }

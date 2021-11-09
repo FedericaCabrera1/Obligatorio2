@@ -38,6 +38,7 @@ public class ventanaB extends javax.swing.JFrame {
         btn_agregarCategoria = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("AGREGAR CATEGORIA:");
 

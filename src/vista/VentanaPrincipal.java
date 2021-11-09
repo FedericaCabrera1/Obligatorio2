@@ -290,7 +290,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private void btn_grabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grabarPedidoActionPerformed
         // TODO add your handling code here:
         Collection prod = lst_listaProductos.getSelectedValuesList();
-        String nombreCliente = lbl_elegirCliente.getText();
+        String cliente = lbl_elegirCliente.getText();
+        int pos1 = 0;
+        boolean termina = false;
+        for (int i=0; i<cliente.length() && !termina; i++){
+            if (cliente.charAt(i)=='('){
+                pos1 = i;
+                termina = true;
+            }
+        }
+        String nombreCliente = cliente.substring(0,pos1);
         String observaciones = txt_observaciones.getText();
         if (nombreCliente.equals("") || prod.isEmpty()) {
             if (nombreCliente.equals("")) {
@@ -376,7 +385,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             String nombreCliente = lbl_elegirCliente.getText();
             String observaciones = txt_observaciones.getText();
             Pedido p = new Pedido(contadorPedidos, nombreCliente, products, observaciones);
-            lbl_mostrarPedido.setText(p.toString());
+            lbl_mostrarPedido.setText("Pedido " + p.getNumero() + " $" + p.precioTotal());
         }
     }//GEN-LAST:event_lst_listaProductosValueChanged
 
@@ -385,6 +394,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         lst_listaProductos.setListData(listData);
         lbl_mostrarPedido.setText("");
         lbl_elegirCliente.setText("");
+        txt_observaciones.setText("");
 
     }//GEN-LAST:event_btn_reiniciarPedidoActionPerformed
 

@@ -44,6 +44,7 @@ public class ventanaC extends javax.swing.JFrame implements PropertyChangeListen
         btn_agregarProducto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("AGREGAR PRODUCTO:");
 
@@ -99,18 +100,17 @@ public class ventanaC extends javax.swing.JFrame implements PropertyChangeListen
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ta_precioProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ta_nombreProducto)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(164, 164, 164)
-                            .addComponent(jLabel1))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(190, 190, 190)
-                            .addComponent(btn_agregarProducto))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(41, 41, 41)
-                            .addComponent(lbl_categoriasProducto)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addComponent(btn_agregarProducto))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(lbl_categoriasProducto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -155,12 +155,6 @@ public class ventanaC extends javax.swing.JFrame implements PropertyChangeListen
         String precio = (ta_precioProducto.getText());
 
         if (!modelo.espacioVacio(nombre) && !modelo.espacioVacio(precio) && !categorias.isEmpty()) {
-            String res = "";
-            for (int j = 0; j < nombre.length(); j++) {
-                if (nombre.charAt(j) != ' ') {
-                    res += nombre.charAt(j);
-                }
-            }
             boolean precioEsDouble = modelo.validacionFormatoPrecio(precio);
             if (!precioEsDouble) {
                 JOptionPane.showMessageDialog(null, "Error en el formato del precio. Reingrese ", "error", JOptionPane.ERROR_MESSAGE);
@@ -172,7 +166,7 @@ public class ventanaC extends javax.swing.JFrame implements PropertyChangeListen
 //                    Arraycategorias.add((Categoria) it.next());
 //                }
                 
-                Producto p = modelo.crearProducto((ArrayList<Categoria>) (categorias), res, Double.parseDouble(precio));
+                Producto p = modelo.crearProducto((ArrayList<Categoria>) (categorias), nombre, Double.parseDouble(precio));
                 boolean esUnico = modelo.verificarNombreUnicoProducto(p);
 
                 if (!esUnico) {

@@ -54,7 +54,7 @@ public class Sistema implements Serializable {
         boolean esUnico = true;
         String nombre = unCliente.getNombre();
         for (int i = 0; i < this.listaClientes.size(); i++) {
-            if (listaClientes.get(i).getNombre().equalsIgnoreCase(nombre)) {
+            if (sacarEspacios(listaClientes.get(i).getNombre()).equalsIgnoreCase(sacarEspacios(nombre))) {
                 esUnico = false;
             }
         }
@@ -66,7 +66,7 @@ public class Sistema implements Serializable {
         boolean esUnico = true;
         String nombre = unProducto.getNombre();
         for (int i = 0; i < this.listaProductos.size(); i++) {
-            if (listaProductos.get(i).getNombre().equalsIgnoreCase(nombre)) {
+            if (sacarEspacios(listaProductos.get(i).getNombre()).equalsIgnoreCase(sacarEspacios(nombre))) {
                 esUnico = false;
             }
         }
@@ -180,7 +180,7 @@ public class Sistema implements Serializable {
         gestor.addPropertyChangeListener(lis);
 
     }
-    
+
     public ArrayList<Producto> darProductosDeCategoria(Categoria c) {
         ArrayList<Producto> productosDeLaCategoria = new ArrayList<Producto>();
         for (int i = 0; i < this.listaProductos.size(); i++) {
