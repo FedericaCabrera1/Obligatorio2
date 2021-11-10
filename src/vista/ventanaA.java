@@ -17,6 +17,7 @@ public class ventanaA extends javax.swing.JFrame {
     private Sistema modelo;
 
     public ventanaA(Sistema elModelo) {
+        //Constructor
         modelo = elModelo;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
