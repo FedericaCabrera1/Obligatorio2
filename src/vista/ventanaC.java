@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
 import dominio.Sistema;
@@ -161,11 +157,6 @@ public class ventanaC extends javax.swing.JFrame implements PropertyChangeListen
                 ta_precioProducto.setText("");
             } else {
                 ArrayList<Categoria> Arraycategorias = new ArrayList();
-//                Iterator<Categoria> it = categorias.iterator();
-//                while(it.hasNext()){
-//                    Arraycategorias.add((Categoria) it.next());
-//                }
-                
                 Producto p = modelo.crearProducto((ArrayList<Categoria>) (categorias), nombre, Double.parseDouble(precio));
                 boolean esUnico = modelo.verificarNombreUnicoProducto(p);
 

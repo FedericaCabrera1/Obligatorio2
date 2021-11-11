@@ -7,7 +7,6 @@ public class Cliente implements Serializable {
     private String nombre;
     private String direccion;
     private String telefono;
-    private static final long serialVersionUID = 11111;
 
     
     public Cliente(String nombre, String direccion, String telefono){

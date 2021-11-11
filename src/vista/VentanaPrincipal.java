@@ -248,8 +248,16 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elegirClienteActionPerformed
-        ventanaF ventana = new ventanaF(modelo);
-        ventana.setVisible(true);
+        if (modelo.getListaClientes().size() != 0) {
+            ventanaF ventana = new ventanaF(modelo);
+            ventana.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay clientes para filtrar. Agregue uno", "error", JOptionPane.INFORMATION_MESSAGE);
+
+            ventanaA ventana = new ventanaA(modelo);
+            ventana.setVisible(true);
+        }
+        
     }//GEN-LAST:event_btn_elegirClienteActionPerformed
 
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
@@ -264,13 +272,27 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_btn_categoriasActionPerformed
 
     private void btn_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_productosActionPerformed
-        ventanaC ventana = new ventanaC(modelo);
-        ventana.setVisible(true);
+        if (modelo.getListaCategorias().size() != 0) {
+            ventanaC ventana = new ventanaC(modelo);
+            ventana.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay categorías ingresadas. Agregue una antes de agregar un producto", "error", JOptionPane.INFORMATION_MESSAGE);
+            ventanaB ventana = new ventanaB(modelo);
+            ventana.setVisible(true);   
+        }
+        
     }//GEN-LAST:event_btn_productosActionPerformed
 
     private void btn_verPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verPedidosActionPerformed
-        ventanaD ventana = new ventanaD(modelo);
-        ventana.setVisible(true);
+        
+        if (modelo.getListaClientes().size() != 0) {
+            ventanaD ventana = new ventanaD(modelo);
+            ventana.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay pedidos para mostrar. Agregue uno", "error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
     }//GEN-LAST:event_btn_verPedidosActionPerformed
 
     private void txt_observacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_observacionesActionPerformed
@@ -289,17 +311,19 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     private void btn_grabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grabarPedidoActionPerformed
         // TODO add your handling code here:
+        DefaultListModel model = new DefaultListModel();
+
         Collection prod = lst_listaProductos.getSelectedValuesList();
         String cliente = lbl_elegirCliente.getText();
         int pos1 = 0;
         boolean termina = false;
-        for (int i=0; i<cliente.length() && !termina; i++){
-            if (cliente.charAt(i)=='('){
+        for (int i = 0; i < cliente.length() && !termina; i++) {
+            if (cliente.charAt(i) == '(') {
                 pos1 = i;
                 termina = true;
             }
         }
-        String nombreCliente = cliente.substring(0,pos1);
+        String nombreCliente = cliente.substring(0, pos1);
         String observaciones = txt_observaciones.getText();
         if (nombreCliente.equals("") || prod.isEmpty()) {
             if (nombreCliente.equals("")) {
@@ -324,16 +348,19 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                 }
                 Producto p = modelo.buscarProductoPorNombre(nombre);
                 products.add(p);
-                
+
             }
-  
+
             Pedido pedido = modelo.crearPedido(contadorPedidos, nombreCliente, products, observaciones);
             modelo.agregarPedido(pedido);
             JOptionPane.showMessageDialog(null, "Pedido grabado con exito!", "success", JOptionPane.INFORMATION_MESSAGE);
-            String[] listData = {""};
-            lst_listaProductos.setListData(listData);
+//            String[] listData = {""};
+//            lst_listaProductos.setListData(listData);
+            model.clear();
+            lst_listaProductos.setModel(model);
             txt_observaciones.setText("");
             productos.clear();
+            lst_listaProductos.removeAll();
             lbl_mostrarPedido.setText("");
             contadorPedidos++;
         }
@@ -341,7 +368,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_btn_grabarPedidoActionPerformed
 
     private void btn_eliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarItemActionPerformed
-        // TODO add your handling code here:
+
         int[] prod = lst_listaProductos.getSelectedIndices();
         if (prod.length == 0) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningun item para eliminar. Seleccione uno.", "error", JOptionPane.ERROR_MESSAGE);
@@ -364,28 +391,31 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_btn_eliminarItemActionPerformed
 
     private void lst_listaProductosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_listaProductosValueChanged
-        // TODO add your handling code here:
-        Collection prod = lst_listaProductos.getSelectedValuesList();
-        if (prod.size() != 0) {
-            ArrayList<String> prods = (ArrayList<String>) prod;
-            ArrayList<Producto> products = new ArrayList<Producto>();
-            for (int i = 0; i < prods.size(); i++) {
-                String producto = prods.get(i);
-                int pos = 0;
-                String nombre = "";
-                for (int j = producto.length() - 1; j > 0 && nombre.equals(""); j--) {
-                    if (producto.charAt(j) == ' ') {
-                        pos = j;
-                        nombre = producto.substring(0, pos);
+
+        if (!lst_listaProductos.isSelectionEmpty()) {
+            Collection prod = lst_listaProductos.getSelectedValuesList();
+
+            if (prod.size() != 0) {
+                ArrayList<String> prods = (ArrayList<String>) prod;
+                ArrayList<Producto> products = new ArrayList<Producto>();
+                for (int i = 0; i < prods.size(); i++) {
+                    String producto = prods.get(i);
+                    int pos = 0;
+                    String nombre = "";
+                    for (int j = producto.length() - 1; j > 0 && nombre.equals(""); j--) {
+                        if (producto.charAt(j) == ' ') {
+                            pos = j;
+                            nombre = producto.substring(0, pos);
+                        }
                     }
+                    Producto p = modelo.buscarProductoPorNombre(nombre);
+                    products.add(p);
                 }
-                Producto p = modelo.buscarProductoPorNombre(nombre);
-                products.add(p);
+                String nombreCliente = lbl_elegirCliente.getText();
+                String observaciones = txt_observaciones.getText();
+                Pedido p = new Pedido(contadorPedidos, nombreCliente, products, observaciones);
+                lbl_mostrarPedido.setText("Pedido " + p.getNumero() + " $" + p.precioTotal());
             }
-            String nombreCliente = lbl_elegirCliente.getText();
-            String observaciones = txt_observaciones.getText();
-            Pedido p = new Pedido(contadorPedidos, nombreCliente, products, observaciones);
-            lbl_mostrarPedido.setText("Pedido " + p.getNumero() + " $" + p.precioTotal());
         }
     }//GEN-LAST:event_lst_listaProductosValueChanged
 
@@ -399,7 +429,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_btn_reiniciarPedidoActionPerformed
 
     private void combo_parteKItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_parteKItemStateChanged
-        // TODO add your handling code here:
+
         int index = combo_parteK.getSelectedIndex();
         if (index != -1) {
             String descripcion = combo_parteK.getSelectedItem().toString();
@@ -431,9 +461,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private class ProductoListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            // este código se ejecutará al presionar el botón, obtengo cuál botón
+
             JButton cual = ((JButton) e.getSource());
-            // código a completar según el botón presionado
+
             String producto = cual.getText();
             productos.add(producto);
             String[] arr = new String[productos.size()];

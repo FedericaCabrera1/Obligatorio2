@@ -14,7 +14,6 @@ public class Sistema implements Serializable {
     private ArrayList<Producto> listaProductos;
     private ArrayList<Pedido> listaPedidos;
     private transient PropertyChangeSupport gestor = new PropertyChangeSupport(this);
-    private static final long serialVersionUID = 11111;
 
     public Sistema() {
         listaClientes = new ArrayList();
