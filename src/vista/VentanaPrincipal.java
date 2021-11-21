@@ -31,7 +31,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         initComponents();
         productos = new ArrayList();
         contadorPedidos = contador;
-        this.setSize(900, 500);
+        this.setSize(1000, 500);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
                 if (JOptionPane.showConfirmDialog(null,
@@ -114,11 +114,17 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             }
         });
         jPanel3.add(btn_elegirCliente);
+
+        lbl_elegirCliente.setBackground(new java.awt.Color(204, 255, 204));
+        lbl_elegirCliente.setOpaque(true);
         jPanel3.add(lbl_elegirCliente);
 
+        jLabel3.setBackground(new java.awt.Color(204, 255, 204));
         jLabel3.setText("Observaciones");
+        jLabel3.setOpaque(true);
         jPanel3.add(jLabel3);
 
+        txt_observaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_observaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_observacionesActionPerformed(evt);
@@ -203,7 +209,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         });
         jPanel4.add(btn_reiniciarPedido);
 
+        lbl_mostrarPedido.setBackground(new java.awt.Color(204, 255, 204));
         lbl_mostrarPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_mostrarPedido.setOpaque(true);
         jPanel4.add(lbl_mostrarPedido);
 
         jPanel2.add(jPanel4);

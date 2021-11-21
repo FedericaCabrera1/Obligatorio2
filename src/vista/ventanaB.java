@@ -25,14 +25,15 @@ public class ventanaB extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         lbl_descripcionCategoria = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ta_descripcionCategoria = new javax.swing.JTextArea();
         lbl_prioridadCategoria = new javax.swing.JLabel();
         sp_prioridadCategoria = new javax.swing.JSpinner();
         lbl_detallesCategoria = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         ta_detallesCategoria = new javax.swing.JTextArea();
         btn_agregarCategoria = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ta_descripcionCategoria = new javax.swing.JTextArea();
+        btn_volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -40,10 +41,6 @@ public class ventanaB extends javax.swing.JFrame {
         jLabel1.setText("AGREGAR CATEGORIA:");
 
         lbl_descripcionCategoria.setText("Descripcion:");
-
-        ta_descripcionCategoria.setColumns(20);
-        ta_descripcionCategoria.setRows(5);
-        jScrollPane1.setViewportView(ta_descripcionCategoria);
 
         lbl_prioridadCategoria.setText("Prioridad: (1 - 10)");
 
@@ -62,6 +59,19 @@ public class ventanaB extends javax.swing.JFrame {
             }
         });
 
+        ta_descripcionCategoria.setColumns(20);
+        ta_descripcionCategoria.setRows(5);
+        ta_descripcionCategoria.setMaximumSize(new java.awt.Dimension(5, 18));
+        ta_descripcionCategoria.setName(""); // NOI18N
+        jScrollPane3.setViewportView(ta_descripcionCategoria);
+
+        btn_volver.setText("Volver");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,26 +81,25 @@ public class ventanaB extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(129, 129, 129))
             .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbl_prioridadCategoria)
-                                .addGap(18, 18, 18)
-                                .addComponent(sp_prioridadCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lbl_detallesCategoria)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lbl_descripcionCategoria)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(169, 169, 169)
-                        .addComponent(btn_agregarCategoria)))
+                        .addComponent(lbl_prioridadCategoria)
+                        .addGap(18, 18, 18)
+                        .addComponent(sp_prioridadCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btn_volver)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_agregarCategoria))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lbl_detallesCategoria)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lbl_descripcionCategoria)
+                            .addGap(18, 18, 18)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -104,7 +113,7 @@ public class ventanaB extends javax.swing.JFrame {
                         .addComponent(lbl_descripcionCategoria))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_prioridadCategoria)
@@ -116,9 +125,11 @@ public class ventanaB extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(btn_agregarCategoria)
-                .addGap(36, 36, 36))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_agregarCategoria)
+                    .addComponent(btn_volver))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -149,11 +160,17 @@ public class ventanaB extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_agregarCategoriaActionPerformed
 
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregarCategoria;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lbl_descripcionCategoria;
     private javax.swing.JLabel lbl_detallesCategoria;
     private javax.swing.JLabel lbl_prioridadCategoria;

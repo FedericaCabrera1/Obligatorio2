@@ -151,7 +151,6 @@ public class Menu extends javax.swing.JFrame {
                     aux2++;
                     if (br.ready()) {
                         line = br.readLine();
-
                     }
                     fields = line.split(";");
                 }
