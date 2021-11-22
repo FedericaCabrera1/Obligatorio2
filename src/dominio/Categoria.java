@@ -4,6 +4,8 @@ package dominio;
 import java.io.Serializable;
 
 public class Categoria implements Serializable {
+//Mercedes Bañales & Federica Cabrera
+ 
     private String descripcion;
     private int prioridad;
     private String detalles;

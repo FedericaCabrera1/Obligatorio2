@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Pedido implements Serializable {
+//Mercedes Bañales & Federica Cabrera
 
     private int numero;
     private String nombreCliente;

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Producto implements Serializable {
+    //Mercedes Bañales & Federica Cabrera
+
     private ArrayList<Categoria> categorias;
     private String nombre;
     private double precio;

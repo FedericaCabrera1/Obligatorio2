@@ -9,11 +9,11 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class ventanaB extends javax.swing.JFrame {
+public class VentanaDarAltaCategoria extends javax.swing.JFrame {
 
     private Sistema modelo;
 
-    public ventanaB(Sistema elModelo) {
+    public VentanaDarAltaCategoria(Sistema elModelo) {
         modelo = elModelo;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

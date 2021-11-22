@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class ventanaF extends javax.swing.JFrame implements PropertyChangeListener {
+public class VentanaElegirCliente extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
 
-    public ventanaF(Sistema elModelo) {
+    public VentanaElegirCliente(Sistema elModelo) {
         modelo = elModelo;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -131,7 +131,7 @@ public class ventanaF extends javax.swing.JFrame implements PropertyChangeListen
         } else {
             JOptionPane.showMessageDialog(null, "No hay clientes para filtrar. Agregue uno", "error", JOptionPane.INFORMATION_MESSAGE);
             ta_filtrarCliente.setText("");
-            ventanaA ventana = new ventanaA(modelo);
+            VentanaDarAltaCliente ventana = new VentanaDarAltaCliente(modelo);
             ventana.setVisible(true);
         }
 

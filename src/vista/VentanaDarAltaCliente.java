@@ -8,11 +8,11 @@ import java.awt.event.ComponentListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class ventanaA extends javax.swing.JFrame {
+public class VentanaDarAltaCliente extends javax.swing.JFrame {
 
     private Sistema modelo;
 
-    public ventanaA(Sistema elModelo) {
+    public VentanaDarAltaCliente(Sistema elModelo) {
         //Constructor
         modelo = elModelo;
         initComponents();

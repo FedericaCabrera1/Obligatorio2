@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 
-public class ventanaD extends javax.swing.JFrame implements PropertyChangeListener {
+public class VentanaVerPedidos extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
 
-    public ventanaD(Sistema unModelo) {
+    public VentanaVerPedidos(Sistema unModelo) {
         modelo = unModelo;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -257,35 +257,35 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     private void btn_elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_elegirClienteActionPerformed
         if (modelo.getListaClientes().size() != 0) {
-            ventanaF ventana = new ventanaF(modelo);
+            VentanaElegirCliente ventana = new VentanaElegirCliente(modelo);
             ventana.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "No hay clientes para filtrar. Agregue uno", "error", JOptionPane.INFORMATION_MESSAGE);
 
-            ventanaA ventana = new ventanaA(modelo);
+            VentanaDarAltaCliente ventana = new VentanaDarAltaCliente(modelo);
             ventana.setVisible(true);
         }
         
     }//GEN-LAST:event_btn_elegirClienteActionPerformed
 
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
-        ventanaA ventana = new ventanaA(modelo);
+        VentanaDarAltaCliente ventana = new VentanaDarAltaCliente(modelo);
         ventana.setVisible(true);
 
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_categoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_categoriasActionPerformed
-        ventanaB ventana = new ventanaB(modelo);
+        VentanaDarAltaCategoria ventana = new VentanaDarAltaCategoria(modelo);
         ventana.setVisible(true);
     }//GEN-LAST:event_btn_categoriasActionPerformed
 
     private void btn_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_productosActionPerformed
         if (modelo.getListaCategorias().size() != 0) {
-            ventanaC ventana = new ventanaC(modelo);
+            VentanaDarAltaProducto ventana = new VentanaDarAltaProducto(modelo);
             ventana.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "No hay categorías ingresadas. Agregue una antes de agregar un producto", "error", JOptionPane.INFORMATION_MESSAGE);
-            ventanaB ventana = new ventanaB(modelo);
+            VentanaDarAltaCategoria ventana = new VentanaDarAltaCategoria(modelo);
             ventana.setVisible(true);   
         }
         
@@ -294,7 +294,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private void btn_verPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verPedidosActionPerformed
         
         if (modelo.getListaClientes().size() != 0) {
-            ventanaD ventana = new ventanaD(modelo);
+            VentanaVerPedidos ventana = new VentanaVerPedidos(modelo);
             ventana.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "No hay pedidos para mostrar. Agregue uno", "error", JOptionPane.INFORMATION_MESSAGE);

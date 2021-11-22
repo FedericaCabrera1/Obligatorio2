@@ -4,6 +4,8 @@ package dominio;
 import java.io.Serializable;
 
 public class Cliente implements Serializable {
+//Mercedes Bañales & Federica Cabrera
+
     private String nombre;
     private String direccion;
     private String telefono;

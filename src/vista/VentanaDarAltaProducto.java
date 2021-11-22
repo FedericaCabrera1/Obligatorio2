@@ -13,11 +13,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 
-public class ventanaC extends javax.swing.JFrame implements PropertyChangeListener {
+public class VentanaDarAltaProducto extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema modelo;
 
-    public ventanaC(Sistema elModelo) {
+    public VentanaDarAltaProducto(Sistema elModelo) {
         modelo = elModelo;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
