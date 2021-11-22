@@ -23,8 +23,6 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
-       
     }
 
     @SuppressWarnings("unchecked")
@@ -110,8 +108,6 @@ public class Menu extends javax.swing.JFrame {
             ventana.setVisible(true);
             dispose();
         }
-
-
     }//GEN-LAST:event_btn_datosPruebaActionPerformed
 
     public Sistema datosPrecargados(String p) {
