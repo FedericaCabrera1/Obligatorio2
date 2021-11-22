@@ -6,24 +6,27 @@ import dominio.Pedido;
 import dominio.Producto;
 import dominio.Sistema;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Menu extends javax.swing.JFrame {
 
-    
     public Menu() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+       
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -69,7 +72,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(btn_datosPrevios, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                     .addComponent(btn_datosPrueba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_sinDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,7 +83,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btn_datosPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_datosPrevios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,19 +98,28 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_sinDatosActionPerformed
 
     private void btn_datosPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datosPruebaActionPerformed
-        Sistema s = datosPrecargados();
-        VentanaPrincipal ventana = new VentanaPrincipal(s, 1);
-        ventana.setVisible(true);
-        dispose();
+       JFileChooser j = new JFileChooser();
+       FileNameExtensionFilter filtro = new FileNameExtensionFilter("csv", "csv", "csv");
+       j.setFileFilter(filtro);
+        int i = j.showOpenDialog(null);
+        if (i == j.APPROVE_OPTION) {
+            File f = j.getSelectedFile();
+            String filepath = f.getPath();
+            Sistema s = datosPrecargados(filepath);
+            VentanaPrincipal ventana = new VentanaPrincipal(s, 1);
+            ventana.setVisible(true);
+            dispose();
+        }
+
 
     }//GEN-LAST:event_btn_datosPruebaActionPerformed
 
-    public Sistema datosPrecargados() {
+    public Sistema datosPrecargados(String p) {
         BufferedReader br = null;
         Sistema s = new Sistema();
 
         try {
-            br = new BufferedReader(new FileReader("DatosPrueba.csv"));
+            br = new BufferedReader(new FileReader(p));
             String line = br.readLine();
             int contador = 0;
             int aux = 0;
@@ -163,6 +175,7 @@ public class Menu extends javax.swing.JFrame {
 
         return s;
     }
+
     private void btn_datosPreviosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_datosPreviosActionPerformed
 
         try {
@@ -184,7 +197,6 @@ public class Menu extends javax.swing.JFrame {
             FileInputStream archivo = new FileInputStream("Datos");
             ObjectInputStream datos = new ObjectInputStream(archivo);
             s = (Sistema) datos.readObject();
-            
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar datos", "Salir", JOptionPane.ERROR_MESSAGE);
