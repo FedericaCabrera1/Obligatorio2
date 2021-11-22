@@ -34,11 +34,11 @@
           <Group type="102" attributes="0">
               <EmptySpace min="130" pref="130" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btn_datosPrevios" alignment="0" pref="171" max="32767" attributes="0"/>
+                  <Component id="btn_datosPrevios" alignment="0" max="32767" attributes="0"/>
                   <Component id="btn_datosPrueba" alignment="0" max="32767" attributes="0"/>
                   <Component id="btn_sinDatos" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="160" max="32767" attributes="0"/>
+              <EmptySpace pref="96" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -59,7 +59,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btn_sinDatos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sistema vac&#xed;o"/>
+        <Property name="text" type="java.lang.String" value="Comenzar con un sistema vac&#xed;o"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_sinDatosActionPerformed"/>
@@ -67,7 +67,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_datosPrueba">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Datos de prueba"/>
+        <Property name="text" type="java.lang.String" value="Cargar datos de prueba"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_datosPruebaActionPerformed"/>
@@ -75,7 +75,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_datosPrevios">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Datos de ejecuci&#xf3;n previa"/>
+        <Property name="text" type="java.lang.String" value="Cargar datos de ejecuci&#xf3;n previa"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_datosPreviosActionPerformed"/>
